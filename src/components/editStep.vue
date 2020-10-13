@@ -1,6 +1,11 @@
 <template>
     <div class="edit_step">
-        markdown will be here
+        <form>
+            <input type="text" />
+            <textarea />
+            <br/>
+            <input type="submit" value="Сохранить">
+        </form>
     </div>
 </template>
 
@@ -12,6 +17,14 @@
 
 <style>
     .edit_step {
-
+        outline: 1px solid red;
+        position: fixed;
+        right: 0;
+        width: 300px;
+        height: 100%;
+        padding: 20px;
+        top: 0;
+        z-index: 999;
+        background: #fff;
     }
 </style>

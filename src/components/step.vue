@@ -1,6 +1,9 @@
 <template>
     <div v-drag="{}">
-        <div class="step">
+        <div
+            class="step"
+            :class="{ selected: step.id == currentStep }"
+        >
             {{ step.title }}
         </div>
     </div>
@@ -9,14 +12,18 @@
 <script>
     export default {
         name: "step",
-        props: ['step']
+        props: ['step', 'currentStep']
     }
 </script>
 
-<style>
+<style lang="scss">
     .step {
         border: 1px solid black;
         display: inline-block;
         padding: 10px;
+
+        &.selected {
+            background-color: aqua;
+        }
     }
 </style>

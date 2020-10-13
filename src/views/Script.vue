@@ -3,10 +3,15 @@
         <step
             v-for="(step, key) in script.steps"
             :step="step"
+            :currentStep="currentStep"
             :key="key"
+            @click.native="selectStep(step.id)"
         />
 
-        <edit-step />
+        <edit-step
+            v-if="currentStep"
+            :current="currentStep"
+        />
     </div>
 </template>
 
@@ -22,7 +27,8 @@
             EditStep
         },
         data: () => ({
-            script: {}
+            script: {},
+            currentStep: 0
         }),
         async mounted () {
             this.getCurrentScript();
@@ -34,6 +40,9 @@
             async getCurrentScript () {
                 const script = await this.getScriptById(this.$route.params.id);
                 this.script = script.data[0];
+            },
+            selectStep (id) {
+                this.currentStep = id;
             }
         }
     }
