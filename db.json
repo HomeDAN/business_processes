@@ -4,30 +4,32 @@
       "name": "первый скрипт",
       "id": 1,
       "steps": [
-        1, 2
+        1,
+        2
       ]
     }
   ],
   "default_steps": [
     {
-      "title": "Поприветствовать",
+      "name": "Поприветствовать",
       "text": "text1",
       "id": "first_step"
     },
     {
-      "title": "Попрощаться",
+      "name": "Попрощаться",
       "text": "text2",
       "id": "last_step"
     }
   ],
   "steps": [
     {
-      "title": "Поприветствовать",
-      "text": "text1",
-      "id": "1"
+      "id": "1",
+      "name": "Никита",
+      "text": "asdfasdf",
+      "bind_to": "2"
     },
     {
-      "title": "Попрощаться",
+      "name": "Попрощаться",
       "text": "text2",
       "id": "2"
     }

@@ -4,7 +4,7 @@
             class="step"
             :class="{ selected: step.id == currentStep }"
         >
-            {{ step.title }}
+            {{ step.name }} (id: {{ step.id }})
         </div>
     </div>
 </template>

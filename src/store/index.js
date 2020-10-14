@@ -6,7 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        scripts: []
+        scripts: [],
+        steps: []
     },
     getters: {
         scriptsList (state) {
@@ -54,6 +55,15 @@ export default new Vuex.Store({
                 await axios.post('http://localhost:3000/scripts', script);
 
                 context.commit('addItemScripts', script);
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
+        },
+        async updateStep (context, data) {
+            try {
+                console.log(data);
+                await axios.patch('http://localhost:3000/steps/' + data.id, data.data);
             } catch (error) {
                 console.error(error);
                 return error;

@@ -11,6 +11,7 @@
         <edit-step
             v-if="currentStep"
             :current="currentStep"
+            :steps="steps"
         />
     </div>
 </template>
