@@ -1,7 +1,7 @@
 <template>
     <div class="script">
         <step
-            v-for="(step, key) in script.steps"
+            v-for="(step, key) in steps"
             :step="step"
             :currentStep="currentStep"
             :key="key"
@@ -28,18 +28,26 @@
         },
         data: () => ({
             script: {},
+            steps: [],
             currentStep: 0
         }),
-        async mounted () {
-            this.getCurrentScript();
+        mounted () {
+            this.setCurrentScriptAndSteps();
         },
         methods: {
             ...mapActions([
-                'getScriptById'
+                'getScriptById',
+                'getStepById'
             ]),
-            async getCurrentScript () {
+            async setCurrentScriptAndSteps () {
                 const script = await this.getScriptById(this.$route.params.id);
                 this.script = script.data[0];
+
+                let step = {};
+                for (let stepId of this.script.steps) {
+                    step = await this.getStepById(stepId);
+                    this.steps.push(step.data[0]);
+                }
             },
             selectStep (id) {
                 this.currentStep = id;

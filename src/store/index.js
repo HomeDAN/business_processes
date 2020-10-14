@@ -25,11 +25,9 @@ export default new Vuex.Store({
         async getScripts (context) {
             try {
                 const scripts = await axios.get('http://localhost:3000/scripts');
-
                 context.commit('setScriptsList', scripts.data);
             } catch (error) {
                 console.error(error);
-
                 return error;
             }
         },
@@ -41,18 +39,23 @@ export default new Vuex.Store({
                 return error;
             }
         },
+        async getStepById (context, id) {
+            try {
+                return axios.get('http://localhost:3000/steps/?id=' + id);
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
+        },
         async createScript (context, name) {
             try {
-                const script = {
-                    name: name
-                };
+                const script = {name: name};
 
                 await axios.post('http://localhost:3000/scripts', script);
 
                 context.commit('addItemScripts', script);
             } catch (error) {
                 console.error(error);
-
                 return error;
             }
         }

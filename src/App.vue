@@ -30,4 +30,18 @@
             }
         }
     }
+
+    .edit_step {
+        outline: 1px solid red;
+        position: fixed;
+        right: 0;
+        width: 300px;
+        height: 100%;
+        padding: 20px;
+        top: 0;
+        z-index: 999;
+        background: #fff;
+    }
+
+    @import'~bootstrap/dist/css/bootstrap.css';
 </style>
