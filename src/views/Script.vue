@@ -1,57 +1,57 @@
 <template>
     <div class="script">
-        <step
-            v-for="(step, key) in steps"
-            :step="step"
-            :currentStep="currentStep"
-            :key="key"
-            @click.native="selectStep(step.id)"
+        <question
+            v-for="question in questions"
+            :question="question"
+            :currentQuestion="currentQuestion"
+            :key="question.id"
+            @click.native="selectQuestion(question.id)"
         />
 
-        <edit-step
-            v-if="currentStep"
-            :current="currentStep"
-            :steps="steps"
+        <edit-question
+            v-if="currentQuestion"
+            :current="currentQuestion"
+            :questions="questions"
         />
     </div>
 </template>
 
 <script>
     import {mapActions} from 'vuex';
-    import Step from '@/components/step.vue';
-    import EditStep from '@/components/editStep.vue';
+    import Question from '@/components/question.vue';
+    import EditQuestion from '@/components/editQuestion.vue';
 
     export default {
         name: "script",
         components: {
-            Step,
-            EditStep
+            Question,
+            EditQuestion
         },
         data: () => ({
             script: {},
-            steps: [],
-            currentStep: 0
+            questions: [],
+            currentQuestion: 0
         }),
         mounted () {
-            this.setCurrentScriptAndSteps();
+            this.setCurrentScriptAndQuestions();
         },
         methods: {
             ...mapActions([
                 'getScriptById',
-                'getStepById'
+                'getQuestionById'
             ]),
-            async setCurrentScriptAndSteps () {
+            async setCurrentScriptAndQuestions () {
                 const script = await this.getScriptById(this.$route.params.id);
                 this.script = script.data[0];
 
-                let step = {};
-                for (let stepId of this.script.steps) {
-                    step = await this.getStepById(stepId);
-                    this.steps.push(step.data[0]);
+                let question = {};
+                for (let questionId of this.script.questions) {
+                    question = await this.getQuestionById(questionId);
+                    this.questions.push(question.data[0]);
                 }
             },
-            selectStep (id) {
-                this.currentStep = id;
+            selectQuestion (id) {
+                this.currentQuestion = id;
             }
         }
     }

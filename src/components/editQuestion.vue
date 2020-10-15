@@ -1,8 +1,8 @@
 <template>
-    <div class="edit_step">
+    <div class="edit_question">
         <form
-            id="edit_step_form"
-            @submit.prevent="submitStep"
+            id="edit_question_form"
+            @submit.prevent="submitQuestion"
         >
             <div class="form-group">
                 <label for="name">
@@ -41,11 +41,11 @@
                     class="form-control"
                 >
                     <option
-                        v-for="step in steps"
-                        :value="step.id"
-                        :key="step.id"
+                        v-for="question in questions"
+                        :value="question.id"
+                        :key="question.id"
                     >
-                        {{ step.id }}
+                        {{ question.id }}
                     </option>
                 </select>
             </div>
@@ -65,8 +65,8 @@
     const $ = jQuery;
 
     export default {
-        name: "editStep",
-        props: ['current', 'steps'],
+        name: "editQuestion",
+        props: ['current', 'questions'],
         data: () => ({
             name: '',
             text: '',
@@ -82,25 +82,25 @@
         },
         methods: {
             ...mapActions([
-                'getStepById',
-                'updateStep'
+                'getQuestionById',
+                'updateQuestion'
             ]),
             async setStepData () {
-                const step = await this.getStepById(this.current);
+                const step = await this.getQuestionById(this.current);
 
                 this.name = step.data[0].name;
                 this.text = step.data[0].text;
                 this.bindTo = step.data[0].bind_to;
             },
-            async submitStep () {
-                let serializedFormArray = $('#edit_step_form').serializeArray();
+            async submitQuestion () {
+                let serializedFormArray = $('#edit_question_form').serializeArray();
                 let objFormData = {};
 
                 $.each(serializedFormArray, function () {
                     objFormData[this.name] = this.value;
                 });
 
-                await this.updateStep({id: this.current, data: objFormData});
+                await this.updateQuestion({id: this.current, data: objFormData});
             }
         }
     }

@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         scripts: [],
-        steps: []
+        questions: []
     },
     getters: {
         scriptsList (state) {
@@ -40,9 +40,9 @@ export default new Vuex.Store({
                 return error;
             }
         },
-        async getStepById (context, id) {
+        async getQuestionById (context, id) {
             try {
-                return axios.get('http://localhost:3000/steps/?id=' + id);
+                return axios.get('http://localhost:3000/questions/?id=' + id);
             } catch (error) {
                 console.error(error);
                 return error;
@@ -60,10 +60,9 @@ export default new Vuex.Store({
                 return error;
             }
         },
-        async updateStep (context, data) {
+        async updateQuestion (context, data) {
             try {
-                console.log(data);
-                await axios.patch('http://localhost:3000/steps/' + data.id, data.data);
+                await axios.patch('http://localhost:3000/questions/' + data.id, data.data);
             } catch (error) {
                 console.error(error);
                 return error;

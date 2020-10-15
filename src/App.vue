@@ -31,7 +31,7 @@
         }
     }
 
-    .edit_step {
+    .edit_question {
         outline: 1px solid red;
         position: fixed;
         right: 0;
