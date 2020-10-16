@@ -3,13 +3,14 @@
         <div
             class="question"
         >
-            {{ question.name }} (id: {{ question.id }})
+            {{ answer.name }}
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "answer"
+        name: "answer",
+        props: ['answer']
     }
 </script>

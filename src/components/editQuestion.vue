@@ -1,5 +1,6 @@
 <template>
     <div class="edit_question">
+        <h3>Редактирование вопроса</h3>
         <form
             id="edit_question_form"
             @submit.prevent="submitQuestion"
@@ -61,8 +62,7 @@
 
 <script>
     import {mapActions} from 'vuex';
-    import jQuery from 'jquery';
-    const $ = jQuery;
+    import serializeFormByDomSelector from '@/functions/serializeFormByDomSelector.js';
 
     export default {
         name: "editQuestion",
@@ -93,12 +93,7 @@
                 this.bindTo = step.data[0].bind_to;
             },
             async submitQuestion () {
-                let serializedFormArray = $('#edit_question_form').serializeArray();
-                let objFormData = {};
-
-                $.each(serializedFormArray, function () {
-                    objFormData[this.name] = this.value;
-                });
+                let objFormData = serializeFormByDomSelector('#edit_question_form');
 
                 await this.updateQuestion({id: this.current, data: objFormData});
             }

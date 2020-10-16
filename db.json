@@ -6,13 +6,10 @@
       "questions": [
         1,
         2
-      ],
-      "answers": [
-        1
       ]
     }
   ],
-  "default_steps": [
+  "default_questions": [
     {
       "name": "Поприветствовать",
       "text": "text1",
@@ -24,25 +21,60 @@
       "id": "last_step"
     }
   ],
+  "answer_statuses": [
+    {
+      "id": "1",
+      "text": "bad"
+    },
+    {
+      "id": "2",
+      "text": "good"
+    }
+  ],
   "questions": [
     {
       "id": "1",
       "name": "Привет",
-      "text": "Могу ли я поговорить с директором?",
-      "bind_to": "2"
+      "text": "Могу ли я поговорить с директором? м?",
+      "asnwers": [
+        1,
+        2
+      ]
     },
     {
-      "name": "Попрощаться",
-      "text": "пока.",
-      "id": "2"
+      "id": "2",
+      "name": "Пока",
+      "text": "Могу ли я поговорить с директором? м?",
+      "asnwers": [
+        3,
+        4
+      ]
     }
   ],
   "answers": [
     {
-      "id": "1",
+      "name": "Никита",
+      "text": "пошел в ...",
+      "status": "2",
+      "id": 1
+    },
+    {
+      "name": "тест",
+      "text": "sdfaasdfasdf",
+      "status": "1",
+      "id": 2
+    },
+    {
       "name": "Привет",
-      "text": "Могу ли я поговорить с директором?",
-      "bind_to": "2"
+      "text": "asdfasdf",
+      "status": "2",
+      "id": 3
+    },
+    {
+      "name": "лох",
+      "text": "фывафыва",
+      "status": "2",
+      "id": 4
     }
   ]
 }

@@ -7,12 +7,20 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         scripts: [],
-        questions: []
+        questions: [],
+        answerStatuses: [],
+        answers: []
     },
     getters: {
         scriptsList (state) {
             return state.scripts;
-        }
+        },
+        answerStatusesList (state) {
+            return state.answerStatuses;
+        },
+        answersList (state) {
+            return state.answers;
+        },
     },
     mutations: {
         setScriptsList (state, scripts) {
@@ -20,9 +28,16 @@ export default new Vuex.Store({
         },
         addItemScripts (state, script) {
             state.scripts.push(script);
-        }
+        },
+        setAnswerStatuses (state, answerStatuses) {
+            state.answerStatuses = answerStatuses;
+        },
+        setAnswersList (state, answers) {
+            state.answers = answers;
+        },
     },
     actions: {
+        /* getters */
         async getScripts (context) {
             try {
                 const scripts = await axios.get('http://localhost:3000/scripts');
@@ -32,22 +47,36 @@ export default new Vuex.Store({
                 return error;
             }
         },
-        async getScriptById (context, id) {
+        async getAnswerStatuses (context) {
             try {
-                return axios.get('http://localhost:3000/scripts/?id=' + id);
+                const statuses = await axios.get('http://localhost:3000/answer_statuses');
+                context.commit('setAnswerStatuses', statuses.data);
             } catch (error) {
                 console.error(error);
                 return error;
             }
+        },
+        async getAnswers (context) {
+            try {
+                const answers = await axios.get('http://localhost:3000/answers');
+                context.commit('setAnswersList', answers.data);
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
+        },
+
+        async getScriptById (context, id) {
+            return axios.get('http://localhost:3000/scripts/?id=' + id);
         },
         async getQuestionById (context, id) {
-            try {
-                return axios.get('http://localhost:3000/questions/?id=' + id);
-            } catch (error) {
-                console.error(error);
-                return error;
-            }
+            return axios.get('http://localhost:3000/questions/?id=' + id);
         },
+        async getAnswerById (context, id) {
+            return axios.get('http://localhost:3000/answers/?id=' + id);
+        },
+
+        // creators
         async createScript (context, name) {
             try {
                 const script = {name: name};
@@ -60,13 +89,12 @@ export default new Vuex.Store({
                 return error;
             }
         },
+        async createAnswer (context, data) {
+            return axios.post('http://localhost:3000/answers', data);
+        },
+        // updaters
         async updateQuestion (context, data) {
-            try {
-                await axios.patch('http://localhost:3000/questions/' + data.id, data.data);
-            } catch (error) {
-                console.error(error);
-                return error;
-            }
+            return axios.patch('http://localhost:3000/questions/' + data.id, data.data);
         }
     }
 });

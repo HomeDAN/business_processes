@@ -7,8 +7,11 @@
                 v-for="(script) in scriptsList"
                 :key="script.id"
             >
-                <router-link :to="{ path: '/scripts/' + script.id }">
-                    {{ script.name }}
+                <router-link :to="{ path: '/scripts/edit/' + script.id }">
+                    {{ script.name }} (редактирование)
+                </router-link> |
+                <router-link :to="{ path: '/scripts/run/' + script.id }">
+                    {{ script.name }} (запустить)
                 </router-link>
             </li>
         </ul>

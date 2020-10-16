@@ -5,13 +5,19 @@
             :question="question"
             :currentQuestion="currentQuestion"
             :key="question.id"
-            @click.native="selectQuestion(question.id)"
+            @click="selectQuestion(question.id)"
+            @is-add-answer="updateState"
         />
 
         <edit-question
-            v-if="currentQuestion"
+            v-if="editQuestion"
             :current="currentQuestion"
             :questions="questions"
+        />
+
+        <create-answer
+            v-if="createAnswer"
+            :currentQuestion="currentQuestion"
         />
     </div>
 </template>
@@ -20,17 +26,21 @@
     import {mapActions} from 'vuex';
     import Question from '@/components/question.vue';
     import EditQuestion from '@/components/editQuestion.vue';
+    import createAnswer from '@/components/createAnswer.vue';
 
     export default {
         name: "script",
         components: {
             Question,
-            EditQuestion
+            EditQuestion,
+            createAnswer
         },
         data: () => ({
             script: {},
             questions: [],
-            currentQuestion: 0
+            currentQuestion: 0,
+            editQuestion: false,
+            createAnswer: false
         }),
         mounted () {
             this.setCurrentScriptAndQuestions();
@@ -52,6 +62,13 @@
             },
             selectQuestion (id) {
                 this.currentQuestion = id;
+
+                this.editQuestion = true;
+                this.createAnswer = false;
+            },
+            updateState () {
+                this.createAnswer = true;
+                this.editQuestion = false;
             }
         }
     }
