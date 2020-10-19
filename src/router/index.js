@@ -17,13 +17,13 @@ const routes = [
     },
     {
         path:'/scripts/edit/:id',
-        name: 'Script',
-        component: () => import('../views/Script.vue'),
+        name: 'EditScript',
+        component: () => import('../views/EditScript.vue')
     },
     {
         path:'/scripts/run/:id',
         name: 'RunScript',
-        component: () => import('../views/RunScript.vue'),
+        component: () => import('../views/RunScript.vue')
     }
 ];
 

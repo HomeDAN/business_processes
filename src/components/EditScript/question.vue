@@ -27,8 +27,8 @@
 </template>
 
 <script>
-    import Answer from '@/components/answer.vue';
-    import editAnswer from '@/components/editAnswer.vue';
+    import Answer from '@/components/EditScript/answer.vue';
+    import editAnswer from '@/components/EditScript/editAnswer.vue';
     import {mapActions} from 'vuex';
 
     export default {

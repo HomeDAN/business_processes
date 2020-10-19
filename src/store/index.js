@@ -76,7 +76,7 @@ export default new Vuex.Store({
             return axios.get('http://localhost:3000/answers/?id=' + id);
         },
 
-        // creators
+        /* creators */
         async createScript (context, name) {
             try {
                 const script = {name: name};
@@ -92,7 +92,8 @@ export default new Vuex.Store({
         async createAnswer (context, data) {
             return axios.post('http://localhost:3000/answers', data);
         },
-        // updaters
+
+        /* updaters */
         async updateQuestion (context, data) {
             return axios.patch('http://localhost:3000/questions/' + data.id, data.data);
         }

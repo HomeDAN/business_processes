@@ -33,7 +33,8 @@
     "sass-loader": "^8.0.2",
     "v-drag": "^2.1.3",
     "vue-template-compiler": "^2.6.11",
-    "snapsvg": "^0.5.1"
+    "snapsvg": "^0.5.1",
+    "vue-select": "^3.10.8"
   },
   "eslintConfig": {
     "root": true,

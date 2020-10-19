@@ -24,9 +24,9 @@
 
 <script>
     import {mapActions} from 'vuex';
-    import Question from '@/components/question.vue';
-    import EditQuestion from '@/components/editQuestion.vue';
-    import createAnswer from '@/components/createAnswer.vue';
+    import Question from '@/components/EditScript/question.vue';
+    import EditQuestion from '@/components/EditScript/editQuestion.vue';
+    import createAnswer from '@/components/EditScript/createAnswer.vue';
 
     export default {
         name: "script",
