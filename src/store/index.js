@@ -96,6 +96,9 @@ export default new Vuex.Store({
         /* updaters */
         async updateQuestion (context, data) {
             return axios.patch('http://localhost:3000/questions/' + data.id, data.data);
+        },
+        async updateAnswer (context, data) {
+            return axios.patch('http://localhost:3000/answers/' + data.id, data.data);
         }
     }
 });

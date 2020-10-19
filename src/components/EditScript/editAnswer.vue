@@ -66,6 +66,7 @@
 
     export default {
         name: "editAnswer",
+        props: ['current'],
         computed: {
             ...mapGetters([
                 'answerStatusesList'
@@ -76,28 +77,31 @@
             text: '',
             name: ''
         }),
+        watch: {
+            current: function () {
+                this.setAnswerData();
+            }
+        },
         methods: {
             ...mapActions([
-                'getAnswerStatuses'
+                'getAnswerById',
+                'updateAnswer'
             ]),
             async submitAnswer () {
                 let objFormData = serializeFormByDomSelector('#edit_answer_form');
+                await this.updateAnswer({id: this.current, data: objFormData});
+            },
+            async setAnswerData () {
+                const answer = await this.getAnswerById(this.current);
 
-                let newAnswer = await this.createAnswer(objFormData);
-                let updatedQuestion = await this.getQuestionById(this.currentQuestion);
-
-                let asnwers = updatedQuestion.data[0].asnwers;
-                asnwers.push(newAnswer.data.id);
-
-                let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {asnwers: asnwers}});
-
-                if (updateQuestion.status == 200) {
-                    document.getElementById('create_answer_form').reset();
-                }
+                this.name = answer.data[0].name;
+                this.text = answer.data[0].text;
+                this.status = answer.data[0].status;
             }
         },
-        mounted () {
+        async mounted () {
             this.$store.dispatch('getAnswerStatuses');
+            this.setAnswerData();
         }
     }
 </script>

@@ -1,6 +1,9 @@
 <template>
     <div class="question_with_answer">
-        <div v-drag="{}">
+        <div
+            v-drag="{}"
+            class="question_drag"
+        >
             <div
                 class="question"
                 :class="{ selected: question.id == currentQuestion }"
@@ -18,28 +21,25 @@
             v-for="answer in answers"
             :answer="answer"
             :key="answer.id"
-        />
-
-        <edit-answer
-
+            @click-answer="selectAnswer(answer.id)"
         />
     </div>
 </template>
 
 <script>
     import Answer from '@/components/EditScript/answer.vue';
-    import editAnswer from '@/components/EditScript/editAnswer.vue';
     import {mapActions} from 'vuex';
 
     export default {
         name: "question",
         props: ['question', 'currentQuestion'],
         data: () => ({
-            answers: []
+            answers: [],
+            editAnswer: false,
+            currentAnswer: 0
         }),
         components: {
-            Answer,
-            editAnswer
+            Answer
         },
         async mounted () {
             let answer = {};
@@ -54,16 +54,20 @@
                 'getAnswerById'
             ]),
             selectQuestion () {
-                this.$emit('click');
+                this.$emit('click-question');
             },
             addAnswer () {
+                this.$emit('click-question');
                 this.$emit('is-add-answer');
+            },
+            selectAnswer (id) {
+                this.$emit('click-answer', id);
             }
         }
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .question {
         border: 1px solid black;
         display: inline-block;
@@ -72,5 +76,9 @@
         &.selected {
             background-color: aqua;
         }
+    }
+
+    .question_drag {
+        display: inline-block;
     }
 </style>

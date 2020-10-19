@@ -73,11 +73,11 @@
             bindTo: 0
         }),
         mounted () {
-            this.setStepData();
+            this.setQuestionData();
         },
         watch: {
             current: function () {
-                this.setStepData();
+                this.setQuestionData();
             }
         },
         methods: {
@@ -85,7 +85,7 @@
                 'getQuestionById',
                 'updateQuestion'
             ]),
-            async setStepData () {
+            async setQuestionData () {
                 const step = await this.getQuestionById(this.current);
 
                 this.name = step.data[0].name;
