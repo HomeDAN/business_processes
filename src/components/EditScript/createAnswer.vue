@@ -87,12 +87,16 @@
             async submitAnswer () {
                 let objFormData = serializeFormByDomSelector('#create_answer_form');
 
-                let newAnswer = await this.createAnswer(objFormData);
+                let createdAnswer = await this.createAnswer(objFormData);
                 let updatedQuestion = await this.getQuestionById(this.currentQuestion);
 
                 let asnwers = updatedQuestion.data[0].asnwers;
-                asnwers.push(newAnswer.data.id);
 
+                if (typeof asnwers === 'undefined') {
+                    asnwers = [];
+                }
+
+                asnwers.push(createdAnswer.data.id);
                 let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {asnwers: asnwers}});
 
                 if (updateQuestion.status == 200) {

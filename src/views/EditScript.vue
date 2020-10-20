@@ -1,5 +1,9 @@
 <template>
     <div class="edit-script">
+        <button @click="createQuestion">
+            Создать вопрос
+        </button>
+
         <question
             v-for="question in questions"
             :question="question"
@@ -10,19 +14,24 @@
             @is-add-answer="updateState"
         />
 
+        <create-question
+            v-if="creatingQuestion"
+            :currentScriptId="currentScriptId"
+        />
+
         <edit-question
-            v-if="editQuestion"
+            v-if="editingQuestion"
             :current="currentQuestion"
             :questions="questions"
         />
 
         <create-answer
-            v-if="createAnswer"
+            v-if="creatingAnswer"
             :currentQuestion="currentQuestion"
         />
 
         <edit-answer
-            v-if="editAnswer"
+            v-if="editingAnswer"
             :current="currentAnswer"
         />
     </div>
@@ -31,6 +40,7 @@
 <script>
     import {mapActions} from 'vuex';
     import Question from '@/components/EditScript/question.vue';
+    import createQuestion from '@/components/EditScript/createQuestion.vue';
     import EditQuestion from '@/components/EditScript/editQuestion.vue';
     import createAnswer from '@/components/EditScript/createAnswer.vue';
     import editAnswer from '@/components/EditScript/editAnswer.vue';
@@ -41,16 +51,19 @@
             Question,
             EditQuestion,
             createAnswer,
-            editAnswer
+            editAnswer,
+            createQuestion
         },
         data: () => ({
             script: {},
+            currentScriptId: 0,
             questions: [],
             currentQuestion: 0,
             currentAnswer: 0,
-            editQuestion: false,
-            editAnswer: false,
-            createAnswer: false
+            creatingAnswer: false,
+            creatingQuestion: false,
+            editingQuestion: false,
+            editingAnswer: false
         }),
         mounted () {
             this.setCurrentScriptAndQuestions();
@@ -61,7 +74,8 @@
                 'getQuestionById'
             ]),
             async setCurrentScriptAndQuestions () {
-                const script = await this.getScriptById(this.$route.params.id);
+                this.currentScriptId = this.$route.params.id;
+                const script = await this.getScriptById(this.currentScriptId);
                 this.script = script.data[0];
 
                 let question = {};
@@ -73,21 +87,30 @@
             selectQuestion (id) {
                 this.currentQuestion = id;
 
-                this.editQuestion = true;
-                this.createAnswer = false;
-                this.editAnswer = false;
+                this.editingQuestion = true;
+                this.creatingAnswer = false;
+                this.editingAnswer = false;
+                this.creatingQuestion = false;
             },
             selectAnswer (id) {
                 this.currentAnswer = id;
 
-                this.editAnswer = true;
-                this.editQuestion = false;
-                this.createAnswer = false;
+                this.editingAnswer = true;
+                this.editingQuestion = false;
+                this.creatingAnswer = false;
+                this.creatingQuestion = false;
             },
             updateState () {
-                this.createAnswer = true;
-                this.editQuestion = false;
-                this.editAnswer = false;
+                this.creatingAnswer = true;
+                this.editingQuestion = false;
+                this.editingAnswer = false;
+                this.creatingQuestion = false;
+            },
+            createQuestion () {
+                this.creatingQuestion = true;
+                this.creatingAnswer = false;
+                this.editingQuestion = false;
+                this.editingAnswer = false;
             }
         }
     }

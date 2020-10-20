@@ -37,6 +37,26 @@ export default new Vuex.Store({
         },
     },
     actions: {
+        /* creators */
+        async createScript (context, name) {
+            try {
+                const script = {name: name};
+
+                await axios.post('http://localhost:3000/scripts', script);
+
+                context.commit('addItemScripts', script);
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
+        },
+        async createQuestion (context, data) {
+            return axios.post('http://localhost:3000/questions', data);
+        },
+        async createAnswer (context, data) {
+            return axios.post('http://localhost:3000/answers', data);
+        },
+
         /* getters */
         async getScripts (context) {
             try {
@@ -65,7 +85,6 @@ export default new Vuex.Store({
                 return error;
             }
         },
-
         async getScriptById (context, id) {
             return axios.get('http://localhost:3000/scripts/?id=' + id);
         },
@@ -76,29 +95,15 @@ export default new Vuex.Store({
             return axios.get('http://localhost:3000/answers/?id=' + id);
         },
 
-        /* creators */
-        async createScript (context, name) {
-            try {
-                const script = {name: name};
-
-                await axios.post('http://localhost:3000/scripts', script);
-
-                context.commit('addItemScripts', script);
-            } catch (error) {
-                console.error(error);
-                return error;
-            }
-        },
-        async createAnswer (context, data) {
-            return axios.post('http://localhost:3000/answers', data);
-        },
-
         /* updaters */
         async updateQuestion (context, data) {
             return axios.patch('http://localhost:3000/questions/' + data.id, data.data);
         },
         async updateAnswer (context, data) {
             return axios.patch('http://localhost:3000/answers/' + data.id, data.data);
+        },
+        async updateScript (context, data) {
+            return axios.patch('http://localhost:3000/scripts/' + data.id, data.data);
         }
     }
 });

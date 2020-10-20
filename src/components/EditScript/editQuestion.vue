@@ -7,7 +7,7 @@
         >
             <div class="form-group">
                 <label for="name">
-                    Название шага
+                    Название вопроса
                 </label>
                 <input
                     type="text"
@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <label for="text">
-                    Текст шага
+                    Текст вопроса
                 </label>
                 <textarea
                     class="form-control"
@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 <label for="bind_to">
-                    Привязать к шагу (по id)
+                    Привязать к вопросу (по id)
                 </label>
 
                 <select
