@@ -1,44 +1,45 @@
 <template>
     <div class="edit-script">
-        <button @click="createQuestion">
+        <button
+            @click="updateCreatingUpdatingState('creatingQuestion')"
+        >
             Создать вопрос
         </button>
 
         <question
-            v-for="question in questions"
+            v-for="question in questionsInCurrentScript"
             :question="question"
             :currentQuestion="currentQuestion"
             :key="question.id"
             @click-question="selectQuestion(question.id)"
             @click-answer="selectAnswer"
-            @is-add-answer="updateState"
+            @is-add-answer="updateCreatingUpdatingState('creatingAnswer')"
         />
 
         <create-question
-            v-if="creatingQuestion"
-            :currentScriptId="currentScriptId"
+            v-if="CreatingUpdatingState.creatingQuestion"
         />
 
         <edit-question
-            v-if="editingQuestion"
+            v-if="CreatingUpdatingState.editingQuestion"
             :current="currentQuestion"
-            :questions="questions"
         />
 
         <create-answer
-            v-if="creatingAnswer"
+            v-if="CreatingUpdatingState.creatingAnswer"
             :currentQuestion="currentQuestion"
         />
 
         <edit-answer
-            v-if="editingAnswer"
+            v-if="CreatingUpdatingState.editingAnswer"
+            :currentQuestion="currentQuestion"
             :current="currentAnswer"
         />
     </div>
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import Question from '@/components/EditScript/question.vue';
     import createQuestion from '@/components/EditScript/createQuestion.vue';
     import EditQuestion from '@/components/EditScript/editQuestion.vue';
@@ -55,62 +56,48 @@
             createQuestion
         },
         data: () => ({
-            script: {},
-            currentScriptId: 0,
-            questions: [],
             currentQuestion: 0,
             currentAnswer: 0,
-            creatingAnswer: false,
-            creatingQuestion: false,
-            editingQuestion: false,
-            editingAnswer: false
+            CreatingUpdatingState: {
+                creatingAnswer: false,
+                creatingQuestion: false,
+                editingQuestion: false,
+                editingAnswer: false
+            }
         }),
+        computed: {
+            ...mapGetters([
+                'currentScriptId',
+                'questionsInCurrentScript'
+            ])
+        },
         mounted () {
-            this.setCurrentScriptAndQuestions();
+            this.$store.dispatch('setCurrentScriptId', this.$route.params.id);
+            this.$store.dispatch('setQuestionsInCurrentScript');
         },
         methods: {
             ...mapActions([
                 'getScriptById',
-                'getQuestionById'
+                'getQuestionById',
+                'setCurrentScriptId',
+                'setQuestionsInCurrentScript'
             ]),
-            async setCurrentScriptAndQuestions () {
-                this.currentScriptId = this.$route.params.id;
-                const script = await this.getScriptById(this.currentScriptId);
-                this.script = script.data[0];
-
-                let question = {};
-                for (let questionId of this.script.questions) {
-                    question = await this.getQuestionById(questionId);
-                    this.questions.push(question.data[0]);
-                }
-            },
             selectQuestion (id) {
                 this.currentQuestion = id;
-
-                this.editingQuestion = true;
-                this.creatingAnswer = false;
-                this.editingAnswer = false;
-                this.creatingQuestion = false;
+                this.updateCreatingUpdatingState('editingQuestion');
             },
             selectAnswer (id) {
                 this.currentAnswer = id;
-
-                this.editingAnswer = true;
-                this.editingQuestion = false;
-                this.creatingAnswer = false;
-                this.creatingQuestion = false;
+                this.updateCreatingUpdatingState('editingAnswer');
             },
-            updateState () {
-                this.creatingAnswer = true;
-                this.editingQuestion = false;
-                this.editingAnswer = false;
-                this.creatingQuestion = false;
-            },
-            createQuestion () {
-                this.creatingQuestion = true;
-                this.creatingAnswer = false;
-                this.editingQuestion = false;
-                this.editingAnswer = false;
+            updateCreatingUpdatingState (changingNow) {
+                for (let state in this.CreatingUpdatingState) {
+                    if (state == changingNow) {
+                        this.CreatingUpdatingState[state] = true;
+                    } else {
+                        this.CreatingUpdatingState[state] = false;
+                    }
+                }
             }
         }
     }

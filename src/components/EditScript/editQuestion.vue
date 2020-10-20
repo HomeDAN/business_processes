@@ -30,27 +30,6 @@
                 ></textarea>
             </div>
 
-            <div class="form-group">
-                <label for="bind_to">
-                    Привязать к вопросу (по id)
-                </label>
-
-                <select
-                    v-model="bindTo"
-                    id="bind_to"
-                    name="bind_to"
-                    class="form-control"
-                >
-                    <option
-                        v-for="question in questions"
-                        :value="question.id"
-                        :key="question.id"
-                    >
-                        {{ question.id }}
-                    </option>
-                </select>
-            </div>
-
             <input
                 type="submit"
                 value="Сохранить"
@@ -61,17 +40,21 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import serializeFormByDomSelector from '@/functions/serializeFormByDomSelector.js';
 
     export default {
         name: "editQuestion",
-        props: ['current', 'questions'],
+        props: ['current'],
         data: () => ({
             name: '',
-            text: '',
-            bindTo: 0
+            text: ''
         }),
+        computed: {
+            ...mapGetters([
+                'questionsInCurrentScript'
+            ])
+        },
         mounted () {
             this.setQuestionData();
         },
@@ -86,11 +69,10 @@
                 'updateQuestion'
             ]),
             async setQuestionData () {
-                const step = await this.getQuestionById(this.current);
+                const question = await this.getQuestionById(this.current);
 
-                this.name = step.data[0].name;
-                this.text = step.data[0].text;
-                this.bindTo = step.data[0].bind_to;
+                this.name = question.data[0].name;
+                this.text = question.data[0].text;
             },
             async submitQuestion () {
                 let objFormData = serializeFormByDomSelector('#edit_question_form');

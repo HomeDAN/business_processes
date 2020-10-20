@@ -51,6 +51,27 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="bind_to">
+                    Привязать к вопросу (по id)
+                </label>
+
+                <select
+                    v-model="bindTo"
+                    id="bind_to"
+                    name="bind_to"
+                    class="form-control"
+                >
+                    <option
+                        v-for="question in questionsInCurrentScript"
+                        :value="question.id"
+                        :key="question.id"
+                    >
+                        {{ question.id }}
+                    </option>
+                </select>
+            </div>
+
             <input
                 type="submit"
                 value="Сохранить"
@@ -74,7 +95,8 @@
         }),
         computed: {
             ...mapGetters([
-                'answerStatusesList'
+                'answerStatusesList',
+                'questionsInCurrentScript'
             ])
         },
         methods: {

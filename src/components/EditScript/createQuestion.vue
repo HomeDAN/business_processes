@@ -42,15 +42,19 @@
 
 <script>
     import serializeFormByDomSelector from '@/functions/serializeFormByDomSelector.js';
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: "createQuestion",
-        props: ['currentScriptId'],
         data: () => ({
             text: '',
             name: ''
         }),
+        computed: {
+            ...mapGetters([
+                'currentScriptId'
+            ])
+        },
         methods: {
             ...mapActions([
                 'createQuestion',

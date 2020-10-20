@@ -51,6 +51,27 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="bind_to">
+                    Привязать к вопросу (по id)
+                </label>
+
+                <select
+                    v-model="bindTo"
+                    id="bind_to"
+                    name="bind_to"
+                    class="form-control"
+                >
+                    <option
+                        v-for="question in questionsInCurrentScript"
+                        :value="question.id"
+                        :key="question.id"
+                    >
+                        {{ question.id }}
+                    </option>
+                </select>
+            </div>
+
             <input
                 type="submit"
                 value="Сохранить"
@@ -66,16 +87,18 @@
 
     export default {
         name: "editAnswer",
-        props: ['current'],
+        props: ['current', 'currentQuestion'],
         computed: {
             ...mapGetters([
-                'answerStatusesList'
+                'answerStatusesList',
+                'questionsInCurrentScript'
             ])
         },
         data: () => ({
             status: 0,
             text: '',
-            name: ''
+            name: '',
+            bindTo: 0
         }),
         watch: {
             current: function () {
@@ -97,6 +120,7 @@
                 this.name = answer.data[0].name;
                 this.text = answer.data[0].text;
                 this.status = answer.data[0].status;
+                this.bindTo = answer.data[0].bind_to;
             }
         },
         async mounted () {

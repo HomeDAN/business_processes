@@ -11,9 +11,9 @@ const routes = [
         component: Home
     },
     {
-        path: '/about',
+        path: '/settings',
         name: 'About',
-        component: () => import('../views/About.vue')
+        component: () => import('../views/Settings.vue')
     },
     {
         path:'/scripts/edit/:id',

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import CreateScript from '@/components/createScript.vue';
-    import ScriptsList from '@/components/scriptsList.vue'
+    import CreateScript from '@/components/Home/createScript.vue';
+    import ScriptsList from '@/components/Home/scriptsList.vue'
 
     export default {
         name: 'Home',

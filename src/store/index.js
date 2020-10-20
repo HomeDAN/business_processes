@@ -7,7 +7,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         scripts: [],
+        currentScriptId: 0,
         questions: [],
+        questionsInCurrentScript: [],
         answerStatuses: [],
         answers: []
     },
@@ -21,6 +23,12 @@ export default new Vuex.Store({
         answersList (state) {
             return state.answers;
         },
+        currentScriptId (state) {
+            return state.currentScriptId;
+        },
+        questionsInCurrentScript (state) {
+            return state.questionsInCurrentScript;
+        }
     },
     mutations: {
         setScriptsList (state, scripts) {
@@ -35,6 +43,12 @@ export default new Vuex.Store({
         setAnswersList (state, answers) {
             state.answers = answers;
         },
+        setCurrentScriptId (state, id) {
+            state.currentScriptId = id;
+        },
+        setQuestionsInCurrentScriptInState (state, questions) {
+            state.questionsInCurrentScript = questions;
+        }
     },
     actions: {
         /* creators */
@@ -104,6 +118,24 @@ export default new Vuex.Store({
         },
         async updateScript (context, data) {
             return axios.patch('http://localhost:3000/scripts/' + data.id, data.data);
+        },
+
+        /* setters */
+        setCurrentScriptId (context, id) {
+            context.commit('setCurrentScriptId', id);
+        },
+        async setQuestionsInCurrentScript (context) {
+            let script = await this._actions.getScriptById[0](this.getters.currentScriptId);
+            let curScript = script.data[0];
+
+            let question = {};
+            let questions = [];
+            for (let questionId of curScript.questions) {
+                question = await this._actions.getQuestionById[0](questionId);
+                questions.push(question.data[0]);
+            }
+
+            context.commit('setQuestionsInCurrentScriptInState', questions);
         }
     }
 });

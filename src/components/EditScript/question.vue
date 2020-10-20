@@ -9,7 +9,7 @@
                 :class="{ selected: question.id == currentQuestion }"
                 @click="selectQuestion"
             >
-                {{ question.name }}
+                {{ question.name }} (ID: {{ question.id }})
             </div>
             <div
                 class="question"
