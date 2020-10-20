@@ -3,6 +3,8 @@
 ## Project setup
 ```
 npm install
+npm i json-server
+json-server --watch db.json
 ```
 
 ### Compiles and hot-reloads for development
