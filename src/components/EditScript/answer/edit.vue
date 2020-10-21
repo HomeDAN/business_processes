@@ -123,7 +123,7 @@
                 this.bindTo = answer.data[0].bind_to;
             }
         },
-        async mounted () {
+        mounted () {
             this.$store.dispatch('getAnswerStatuses');
             this.setAnswerData();
         }

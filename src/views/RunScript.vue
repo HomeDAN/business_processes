@@ -54,6 +54,11 @@
                 'setCurrentScriptId',
                 'setQuestionsInCurrentScript'
             ]),
+            /**
+            todo:
+             this method dublicat watch questionsInCurrentScript
+             fix it !!
+            */
             changeStep (next) {
                 this.currentQuestion = next;
 

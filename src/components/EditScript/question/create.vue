@@ -57,13 +57,14 @@
         },
         methods: {
             ...mapActions([
-                'createQuestion',
+                'createAnswerStatus',
                 'getScriptById',
                 'updateScript'
             ]),
             async submitQuestion () {
                 let objFormData = serializeFormByDomSelector('#create_question_form');
                 objFormData.answers = [];
+                // todo: проверка на статус
                 let createdQuestion = await this.createQuestion(objFormData);
                 let updatedScript = await this.getScriptById(this.currentScriptId);
 

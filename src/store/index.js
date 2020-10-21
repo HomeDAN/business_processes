@@ -70,6 +70,9 @@ export default new Vuex.Store({
         async createAnswer (context, data) {
             return axios.post('http://localhost:3000/answers', data);
         },
+        async createAnswerStatus (context, data) {
+            axios.post('http://localhost:3000/answer_statuses', data);
+        },
 
         /* getters */
         async getScripts (context) {
@@ -108,16 +111,22 @@ export default new Vuex.Store({
         async getAnswerById (context, id) {
             return axios.get('http://localhost:3000/answers/?id=' + id);
         },
+        async getAnswerStatysById (context, id) {
+            return axios.get('http://localhost:3000/answer_statuses/?id=' + id);
+        },
 
         /* updaters */
+        async updateScript (context, data) {
+            return axios.patch('http://localhost:3000/scripts/' + data.id, data.data);
+        },
         async updateQuestion (context, data) {
             return axios.patch('http://localhost:3000/questions/' + data.id, data.data);
         },
         async updateAnswer (context, data) {
             return axios.patch('http://localhost:3000/answers/' + data.id, data.data);
         },
-        async updateScript (context, data) {
-            return axios.patch('http://localhost:3000/scripts/' + data.id, data.data);
+        async updateAnswerStatus (context, data) {
+            return axios.patch('http://localhost:3000/answer_statuses/' + data.id, data.data);
         },
 
         /* setters */

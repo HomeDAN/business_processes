@@ -9,8 +9,8 @@
         <question
             v-for="question in questionsInCurrentScript"
             :question="question"
-            :currentQuestion="currentQuestion"
             :key="question.id"
+            :currentQuestion="currentQuestion"
             @click-question="selectQuestion(question.id)"
             @click-answer="selectAnswer"
             @is-add-answer="updateCreatingUpdatingState('creatingAnswer')"
@@ -40,11 +40,11 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex';
-    import Question from '@/components/EditScript/question.vue';
-    import createQuestion from '@/components/EditScript/createQuestion.vue';
-    import EditQuestion from '@/components/EditScript/editQuestion.vue';
-    import createAnswer from '@/components/EditScript/createAnswer.vue';
-    import editAnswer from '@/components/EditScript/editAnswer.vue';
+    import Question from '@/components/EditScript/question/index.vue';
+    import createQuestion from '@/components/EditScript/question/create.vue';
+    import EditQuestion from '@/components/EditScript/question/edit.vue';
+    import createAnswer from '@/components/EditScript/answer/create.vue';
+    import editAnswer from '@/components/EditScript/answer/edit.vue';
 
     export default {
         name: "EditScript",

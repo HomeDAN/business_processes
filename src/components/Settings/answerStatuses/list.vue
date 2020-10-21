@@ -7,7 +7,7 @@
             {{ status.text }}
 
             <button
-                @click="editStatus"
+                @click="editStatus(status.id)"
             >
                 Изменить
             </button>
@@ -32,8 +32,8 @@
             ...mapActions([
                 'getAnswerStatuses'
             ]),
-            editStatus () {
-
+            editStatus (id) {
+                this.$emit('edit-status', id);
             }
         }
     }

@@ -1,13 +1,13 @@
 <template>
     <div class="settings">
-        <h1>Настройки</h1>
+        <h3>Настройки</h3>
 
         <answer-statuses />
     </div>
 </template>
 
 <script>
-    import AnswerStatuses from '@/components/Settings/answerStatuses.vue'
+    import AnswerStatuses from '@/components/Settings/answerStatuses/index.vue'
 
     export default {
         name: 'settings',
