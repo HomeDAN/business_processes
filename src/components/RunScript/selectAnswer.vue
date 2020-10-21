@@ -1,7 +1,7 @@
 <template>
     <div class="select-answer">
         <v-select
-            :options="answersValues"
+            :options="answersSelect"
             @input="selectAnswer"
         />
     </div>
@@ -20,7 +20,7 @@
         },
         data: () => ({
             answers: [],
-            answersValues: []
+            answersSelect: []
         }),
         async mounted () {
             let question = await this.getQuestionById(this.currentQuestion);
@@ -28,8 +28,14 @@
 
             for (let answerId of question.data[0].asnwers) {
                 answer = await this.getAnswerById(answerId);
+
                 this.answers.push(answer.data[0]);
-                this.answersValues.push(answer.data[0].text);
+
+                this.answersSelect.push({
+                    label: answer.data[0].text,
+                    id: answer.data[0].id,
+                    next: answer.data[0].bind_to
+                });
             }
         },
         methods: {

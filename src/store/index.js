@@ -130,6 +130,7 @@ export default new Vuex.Store({
 
             let question = {};
             let questions = [];
+
             for (let questionId of curScript.questions) {
                 question = await this._actions.getQuestionById[0](questionId);
                 questions.push(question.data[0]);

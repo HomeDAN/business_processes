@@ -1,10 +1,10 @@
 <template>
     <div class="run_script">
         <question-answers
-            v-for="(question, key) in questions"
+            v-for="question in questionsInMessages"
             :key="question.id"
             :question="question"
-            :number="key"
+            :number="question.id"
             :currentQuestion="currentQuestion"
             @change-step="changeStep"
         />
@@ -12,39 +12,60 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import QuestionAnswers from '@/components/RunScript/questionAnswers.vue';
 
     export default {
         name: "RunScript",
         data: () => ({
-            script: {},
-            questions: [],
-            currentQuestion: 0
+            currentQuestion: 0,
+            questionsInMessages: []
         }),
+        computed: {
+            ...mapGetters([
+                'questionsInCurrentScript'
+            ])
+        },
         components: {
             QuestionAnswers
         },
+        watch: {
+            questionsInCurrentScript (val) {
+                let key = 0;
+
+                for (let questionKey in val) {
+                    if (val[questionKey].id == this.currentQuestion) {
+                        key = questionKey;
+                    }
+                }
+
+                this.currentQuestion = val[key].id;
+                this.questionsInMessages.push(val[key]);
+            }
+        },
         mounted () {
-            this.setCurrentScriptAndQuestions();
+            this.$store.dispatch('setCurrentScriptId', this.$route.params.id);
+            this.$store.dispatch('setQuestionsInCurrentScript');
         },
         methods: {
             ...mapActions([
                 'getScriptById',
-                'getQuestionById'
+                'getQuestionById',
+                'setCurrentScriptId',
+                'setQuestionsInCurrentScript'
             ]),
-            async setCurrentScriptAndQuestions () {
-                const script = await this.getScriptById(this.$route.params.id);
-                this.script = script.data[0];
+            changeStep (next) {
+                this.currentQuestion = next;
 
-                let question = {};
-                for (let questionId of this.script.questions) {
-                    question = await this.getQuestionById(questionId);
-                    this.questions.push(question.data[0]);
+                let key = 0;
+
+                for (let questionKey in this.questionsInCurrentScript) {
+                    if (this.questionsInCurrentScript[questionKey].id == this.currentQuestion) {
+                        key = questionKey;
+                    }
                 }
-            },
-            changeStep () {
-                this.currentQuestion++;
+
+                this.questionsInMessages.push(this.questionsInCurrentScript[key]);
             }
         }
     }

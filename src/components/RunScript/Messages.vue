@@ -13,7 +13,7 @@
     import {mapActions} from "vuex";
 
     export default {
-        name: "dialog",
+        name: "messages",
         props: ['currentQuestion', 'answer'],
         data: () => ({
             question: {}
