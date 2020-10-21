@@ -31,13 +31,7 @@
         },
         watch: {
             questionsInCurrentScript (val) {
-                let key = 0;
-
-                for (let questionKey in val) {
-                    if (val[questionKey].id == this.currentQuestion) {
-                        key = questionKey;
-                    }
-                }
+                let key = this.getKeyCurrentQuestionInQuestionsInCurrentScriptArray();
 
                 this.currentQuestion = val[key].id;
                 this.questionsInMessages.push(val[key]);
@@ -54,14 +48,17 @@
                 'setCurrentScriptId',
                 'setQuestionsInCurrentScript'
             ]),
-            /**
-            todo:
-             this method dublicat watch questionsInCurrentScript
-             fix it !!
-            */
             changeStep (next) {
                 this.currentQuestion = next;
 
+                if (typeof next == 'undefined') {
+                    return;
+                }
+
+                let key = this.getKeyCurrentQuestionInQuestionsInCurrentScriptArray();
+                this.questionsInMessages.push(this.questionsInCurrentScript[key]);
+            },
+            getKeyCurrentQuestionInQuestionsInCurrentScriptArray () {
                 let key = 0;
 
                 for (let questionKey in this.questionsInCurrentScript) {
@@ -70,7 +67,7 @@
                     }
                 }
 
-                this.questionsInMessages.push(this.questionsInCurrentScript[key]);
+                return key;
             }
         }
     }

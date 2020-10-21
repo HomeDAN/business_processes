@@ -18,7 +18,7 @@
 <script>
     import {mapActions} from 'vuex';
     import SelectAnswer from '@/components/RunScript/selectAnswer.vue';
-    import Messages from '@/components/RunScript/Messages.vue';
+    import Messages from '@/components/RunScript/messages.vue';
 
     export default {
         name: "questionAnswers",
