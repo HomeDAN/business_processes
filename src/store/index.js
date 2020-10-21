@@ -71,7 +71,7 @@ export default new Vuex.Store({
             return axios.post('http://localhost:3000/answers', data);
         },
         async createAnswerStatus (context, data) {
-            axios.post('http://localhost:3000/answer_statuses', data);
+            return axios.post('http://localhost:3000/answer_statuses', data);
         },
 
         /* getters */
