@@ -91,7 +91,8 @@
         data: () => ({
             status: 0,
             text: '',
-            name: ''
+            name: '',
+            bindTo: 0
         }),
         computed: {
             ...mapGetters([

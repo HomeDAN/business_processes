@@ -42,10 +42,9 @@
             ]),
             async submitStatus () {
                 let objFormData = serializeFormByDomSelector('#create_status_form');
-
                 let createdStatus = await this.createAnswerStatus(objFormData);
 
-                if (createdStatus.status == 200) {
+                if (createdStatus == 200) {
                     document.getElementById('create_status_form').reset();
                 }
             }

@@ -44,10 +44,12 @@
         async mounted () {
             let answer = {};
 
-            for (let answerId of this.question.asnwers) {
-                answer = await this.getAnswerById(answerId);
-                this.answers.push(answer.data[0]);
-            }
+            //if (Array.isArray(this.question.answers)) {
+                for (let answerId of this.question.asnwers) {
+                    answer = await this.getAnswerById(answerId);
+                    this.answers.push(answer.data[0]);
+                }
+            //}
         },
         methods: {
             ...mapActions([

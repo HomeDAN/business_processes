@@ -40,6 +40,9 @@ export default new Vuex.Store({
         setAnswerStatuses (state, answerStatuses) {
             state.answerStatuses = answerStatuses;
         },
+        addAnswerStatus (state, status) {
+            state.answerStatuses.push(status);
+        },
         setAnswersList (state, answers) {
             state.answers = answers;
         },
@@ -54,11 +57,9 @@ export default new Vuex.Store({
         /* creators */
         async createScript (context, name) {
             try {
-                const script = {name: name};
-
-                await axios.post('http://localhost:3000/scripts', script);
-
-                context.commit('addItemScripts', script);
+                const scriptData = {name: name, questions: []};
+                let script = await axios.post('http://localhost:3000/scripts', scriptData);
+                context.commit('addItemScripts', script.data);
             } catch (error) {
                 console.error(error);
                 return error;
@@ -71,7 +72,15 @@ export default new Vuex.Store({
             return axios.post('http://localhost:3000/answers', data);
         },
         async createAnswerStatus (context, data) {
-            return axios.post('http://localhost:3000/answer_statuses', data);
+            try {
+                let created = await axios.post('http://localhost:3000/answer_statuses', data);
+                context.commit('addAnswerStatus', created.data);
+
+                return created.status;
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
         },
 
         /* getters */
@@ -133,6 +142,7 @@ export default new Vuex.Store({
         setCurrentScriptId (context, id) {
             context.commit('setCurrentScriptId', id);
         },
+        // todo this._actions переписать, как-то нужно по другому обращаться к экшонам. нужно узнать как.
         async setQuestionsInCurrentScript (context) {
             let script = await this._actions.getScriptById[0](this.getters.currentScriptId);
             let curScript = script.data[0];

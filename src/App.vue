@@ -2,7 +2,8 @@
     <div id="app">
         <div id="nav">
             <router-link to="/">Home</router-link> |
-            <router-link to="/settings">Settings</router-link>
+            <router-link to="/settings">Settings</router-link> |
+            <router-link to="/test">Test</router-link>
         </div>
 
         <router-view/>
@@ -41,6 +42,23 @@
         top: 0;
         z-index: 999;
         background: #fff;
+    }
+
+    .modal-mask {
+        position: fixed;
+        z-index: 9998;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        display: table;
+        transition: opacity .3s ease;
+    }
+
+    .modal-wrapper {
+        display: table-cell;
+        vertical-align: middle;
     }
 
     @import'~bootstrap/dist/css/bootstrap.css';

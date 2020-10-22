@@ -18,11 +18,13 @@
 
         <create-question
             v-if="CreatingUpdatingState.creatingQuestion"
+            @close-modal="closeAllModal"
         />
 
         <edit-question
             v-if="CreatingUpdatingState.editingQuestion"
             :current="currentQuestion"
+            @close-modal="closeAllModal"
         />
 
         <create-answer
@@ -45,6 +47,10 @@
     import EditQuestion from '@/components/EditScript/question/edit.vue';
     import createAnswer from '@/components/EditScript/answer/create.vue';
     import editAnswer from '@/components/EditScript/answer/edit.vue';
+
+    import 'tui-editor/dist/tui-editor.css'
+    import 'tui-editor/dist/tui-editor-contents.css'
+    import 'codemirror/lib/codemirror.css'
 
     export default {
         name: "EditScript",
@@ -82,6 +88,11 @@
                 'setCurrentScriptId',
                 'setQuestionsInCurrentScript'
             ]),
+            closeAllModal () {
+                for (let state in this.CreatingUpdatingState) {
+                    this.CreatingUpdatingState[state] = false;
+                }
+            },
             selectQuestion (id) {
                 this.currentQuestion = id;
                 this.updateCreatingUpdatingState('editingQuestion');

@@ -6,35 +6,32 @@
       "questions": [
         1,
         2,
-        3
+        3,
+        7
       ]
-    }
-  ],
-  "answer_statuses": [
-    {
-      "id": "1",
-      "text": "bad"
     },
     {
-      "id": "2",
-      "text": "good"
+      "name": "тест",
+      "questions": [
+        4
+      ],
+      "id": 2
     }
   ],
   "questions": [
     {
       "name": "Первый вопрос",
       "text": "Привет. ",
-      "answers": [],
       "id": 1,
       "asnwers": [
         1,
-        2
+        2,
+        7
       ]
     },
     {
       "name": "Второй вопрос",
       "text": "Второй вопрос (2)",
-      "answers": [],
       "id": 2,
       "asnwers": [
         3,
@@ -44,12 +41,17 @@
     {
       "name": "Второй вопрос",
       "text": "Второй вопрос (3)",
-      "answers": [],
       "id": 3,
       "asnwers": [
         5,
         6
       ]
+    },
+    {
+      "name": "тест",
+      "text": "<p>asdfasdfasdf<br>\nasdfasdfasdfasdf</p>\n",
+      "answers": [],
+      "id": 4
     }
   ],
   "answers": [
@@ -88,6 +90,27 @@
       "text": "test (3)",
       "status": "1",
       "id": 6
+    },
+    {
+      "name": "тест",
+      "text": "tesat",
+      "status": "1",
+      "bind_to": "2",
+      "id": 7
+    }
+  ],
+  "answer_statuses": [
+    {
+      "id": "1",
+      "text": "bad"
+    },
+    {
+      "id": "2",
+      "text": "good"
+    },
+    {
+      "text": "ugly",
+      "id": "P07_Dps"
     }
   ]
 }
