@@ -1,46 +1,106 @@
 <template>
-    <div class="">
+    <div class="question_with_answer" >
         <div
             v-drag="{}"
-            class="answer_drag"
+            class="question_drag"
         >
             <div
-                class="answer"
-                @click="selectAnswer"
+                class="question"
+                :class="{ selected: question.id == currentQuestion }"
+                @click="selectQuestion"
+                v-bind:id="question.id"
             >
-                {{ answer.name }}
+                {{ question.name }} (ID: {{ question.id }})
             </div>
+            <div
+                class="question"
+                @click="addAnswer"
+            >add</div>
         </div>
+
+        <answer
+            v-for="answer in answers"
+            :answer="answer"
+            :key="answer.id"
+            @click-answer="selectAnswer(answer.id)"
+        />
     </div>
 </template>
 
 <script>
+    import Answer from '@/components/EditScript/answer/index.vue';
+    import {mapActions} from 'vuex';
+
     export default {
-        name: "answer",
-        props: ['answer', 'currentQuestion'],
+        name: "question",
+        props: ['question', 'currentQuestion'],
         data: () => ({
-            currentAnswer: 0
+            storageId: [],
+            answers: [],
+            editAnswer: false,
+            currentAnswer: 0,
+            styleObject: {
+                outline: '1px solid red',
+                fontSize: '13px'
+            }
         }),
+        components: {
+            Answer
+        },
+        async mounted () {
+            let answer = {};
+
+            //if (Array.isArray(this.question.answers)) {
+                for (let answerId of this.question.asnwers) {
+                    answer = await this.getAnswerById(answerId);
+                    this.answers.push(answer.data[0]);
+                }
+            //}
+        },
         methods: {
-            selectAnswer () {
-                this.$emit('click-answer', this.answer.id);
+            ...mapActions([
+                'getAnswerById'
+            ]),
+            selectQuestion (e) {
+                this.$emit('click-question');
+                const itemData = {
+                    id: e.target.id,
+                    coords: {
+                        x: e.clientX,
+                        y: e.clientY
+                    }
+                }
+                Object.keys(localStorage).forEach(i=> i === "loglevel:webpack-dev-server" || i === "TOAST UI editor for localhost: Statistics" ? " " : this.storageId.push(i) )
+
+                console.log(this.storageId)
+
+                localStorage.setItem(JSON.stringify(e.target.id), JSON.stringify(itemData))
+            },
+            addAnswer () {
+                this.$emit('click-question');
+                this.$emit('is-add-answer');
+            },
+            selectAnswer (id) {
+                this.$emit('click-answer', id);
+            },
+            setCoordsOnLoad(){
             }
         }
     }
 </script>
 
-<style lang="scss">
-    .answer_drag {
-        display: inline-block;
-    }
-
-    .answer {
+<style lang="scss" scoped>
+    .question {
         border: 1px solid black;
         display: inline-block;
         padding: 10px;
 
         &.selected {
-             background-color: aqua;
-         }
+            background-color: aqua;
+        }
+    }
+
+    .question_drag {
+        display: inline-block;
     }
 </style>
