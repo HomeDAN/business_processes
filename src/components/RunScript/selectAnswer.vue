@@ -3,7 +3,9 @@
         <v-select
             :options="answersSelect"
             @input="selectAnswer"
-        />
+        >
+            <div slot='answersSelect' slot-scope='{answersSelect}' v-html='answersSelect.label'/>
+        </v-select>
     </div>
 </template>
 
