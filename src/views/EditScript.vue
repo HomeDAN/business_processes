@@ -30,12 +30,14 @@
         <create-answer
             v-if="CreatingUpdatingState.creatingAnswer"
             :currentQuestion="currentQuestion"
+            @close-modal="closeAllModal"
         />
 
         <edit-answer
             v-if="CreatingUpdatingState.editingAnswer"
             :currentQuestion="currentQuestion"
             :current="currentAnswer"
+            @close-modal="closeAllModal"
         />
     </div>
 </template>

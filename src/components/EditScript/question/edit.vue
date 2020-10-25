@@ -29,7 +29,8 @@
                                 </div>
 
                                 <editor
-                                    :value="text"
+                                    v-if="text.length"
+                                    :initialValue="text"
                                     :language="editorOptions.language"
                                     :initialEditType="editorOptions.initialEditType"
                                     height="350px"
@@ -101,7 +102,11 @@
                 let objFormData = serializeFormByDomSelector('#edit_question_form');
                 objFormData.text = this.getHtml();
 
-                await this.updateQuestion({id: this.current, data: objFormData});
+                let updatedQuestion = await this.updateQuestion({id: this.current, data: objFormData});
+
+                if (updatedQuestion.status == 200) {
+                    document.getElementById('edit_question_form').reset();
+                }
             }
         }
     }

@@ -8,6 +8,7 @@
                 class="question"
                 :class="{ selected: question.id == currentQuestion }"
                 @click="selectQuestion"
+                v-bind:id="question.id"
             >
                 {{ question.name }} (ID: {{ question.id }})
             </div>
@@ -34,6 +35,7 @@
         name: "question",
         props: ['question', 'currentQuestion'],
         data: () => ({
+            idAndCoordsStorage: [],
             answers: [],
             editAnswer: false,
             currentAnswer: 0
@@ -55,8 +57,32 @@
             ...mapActions([
                 'getAnswerById'
             ]),
-            selectQuestion () {
+            selectQuestion (e) {
                 this.$emit('click-question');
+
+                // Получаем ID и координаты объекта (вопроса)
+                const itemData = {
+                    id: e.target.id,
+                    coords: {
+                        x: e.clientX,
+                        y: e.clientY
+                    }
+                };
+
+                // Поиск, существует объект в масиве или нет
+                let item = this.idAndCoordsStorage.find(i => i.id === itemData.id);
+
+                // Если существует, обновляем координаты, иначе - добавляем новый элемент
+                if (item) {
+                    item.coords.x = itemData.coords.x;
+                    item.coords.y = itemData.coords.y;
+                    console.log("test")
+                } else {
+                    this.idAndCoordsStorage.push(itemData);
+                }
+
+                // console.log(this.idAndCoordsStorage);
+                // localStorage.setItem(JSON.stringify(e.target.id), JSON.stringify(itemData))
             },
             addAnswer () {
                 this.$emit('click-question');

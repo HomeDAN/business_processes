@@ -3,7 +3,7 @@
 ## Project setup
 ```
 npm install
-npm i json-server -g
+npm i json-server
 json-server --watch db.json
 ```
 

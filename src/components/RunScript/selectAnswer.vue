@@ -3,7 +3,9 @@
         <v-select
             :options="answersSelect"
             @input="selectAnswer"
-        />
+        >
+            <div slot='answersSelect' slot-scope='{answersSelect}' v-html='answersSelect.label'/>
+        </v-select>
     </div>
 </template>
 
@@ -32,7 +34,7 @@
                 this.answers.push(answer.data[0]);
 
                 this.answersSelect.push({
-                    label: answer.data[0].text,
+                    label: answer.data[0].text.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' '),
                     id: answer.data[0].id,
                     next: answer.data[0].bind_to
                 });
