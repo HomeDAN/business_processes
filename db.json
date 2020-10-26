@@ -31,8 +31,8 @@
         7
       ],
       "coords": {
-        "x": 57,
-        "y": 296
+        "x": -277,
+        "y": 66
       }
     },
     {
@@ -44,8 +44,8 @@
         4
       ],
       "coords": {
-        "x": 953,
-        "y": 510
+        "x": -423,
+        "y": 167
       }
     },
     {
@@ -57,8 +57,8 @@
         6
       ],
       "coords": {
-        "x": 245,
-        "y": 645
+        "x": 300,
+        "y": 42
       }
     },
     {
@@ -69,19 +69,31 @@
       "asnwers": [
         8,
         9
-      ]
+      ],
+      "coords": {
+        "x": -191,
+        "y": 16
+      }
     },
     {
       "name": "второй вопрос (2)",
       "text": "<p>фывафывафыва<br>\nфывафыва<br>\nфывафыва</p>\n",
       "answers": [],
-      "id": 5
+      "id": 5,
+      "coords": {
+        "x": -361,
+        "y": 63
+      }
     },
     {
       "name": "Третий вопрос",
       "text": "<h3>фывафывафыва</h3>\n<p><br data-tomark-pass=\"\"><br>\nфывафывафывафыва</p>\n",
       "answers": [],
-      "id": 6
+      "id": 6,
+      "coords": {
+        "x": 78,
+        "y": 44
+      }
     },
     {
       "name": "Daniel",
@@ -91,7 +103,11 @@
       "asnwers": [
         10,
         11
-      ]
+      ],
+      "coords": {
+        "x": 113,
+        "y": 256
+      }
     }
   ],
   "answers": [
@@ -102,8 +118,8 @@
       "id": 1,
       "bind_to": "3",
       "coords": {
-        "x": 314,
-        "y": 217
+        "x": -413,
+        "y": 118
       }
     },
     {
@@ -113,65 +129,101 @@
       "id": 2,
       "bind_to": "2",
       "coords": {
-        "x": 304,
-        "y": 211
+        "x": -59,
+        "y": 62
       }
     },
     {
       "name": "Ответ",
       "text": "Ответ (2)",
-      "id": 3
+      "id": 3,
+      "coords": {
+        "x": -314,
+        "y": 322
+      }
     },
     {
       "name": "test",
       "text": "test (2)",
-      "id": 4
+      "id": 4,
+      "coords": {
+        "x": -164,
+        "y": 244
+      }
     },
     {
       "name": "Ответ",
       "text": "Ответ (3)",
       "status": "1",
-      "id": 5
+      "id": 5,
+      "coords": {
+        "x": 331,
+        "y": 161
+      }
     },
     {
       "name": "test",
       "text": "test (3)",
       "status": "1",
-      "id": 6
+      "id": 6,
+      "coords": {
+        "x": 239,
+        "y": -174
+      }
     },
     {
       "name": "тест",
       "text": "tesat",
       "status": "1",
       "bind_to": "2",
-      "id": 7
+      "id": 7,
+      "coords": {
+        "x": 130,
+        "y": 364
+      }
     },
     {
       "name": "тест",
       "status": "1",
       "text": "<h3 data-tomark-pass=\"\">asdfjkasdlfkjasdflkjas\n</h3>slafdjkaoweirlsdkfasdf\n<ol data-tomark-pass=\"\"><li data-tomark-pass=\"\">lkasdj</li><li data-tomark-pass=\"\">asldkfj</li><li data-tomark-pass=\"\">asdlkfj</li></ol>ведет ко второму вопросу\n",
       "id": 8,
-      "bind_to": "5"
+      "bind_to": "5",
+      "coords": {
+        "x": -313,
+        "y": 51
+      }
     },
     {
       "name": "к вопросу с id = 6",
       "status": "2",
       "bind_to": "6",
       "text": "<p>asdfasdf</p>\n<p>ведет на третий вопрос.</p>\n",
-      "id": 9
+      "id": 9,
+      "coords": {
+        "x": -1,
+        "y": 14
+      }
     },
     {
       "name": "Ответ DANIEL",
       "bind_to": "7",
       "text": "<p>Ответ DANIEL</p>\n",
-      "id": 10
+      "id": 10,
+      "coords": {
+        "x": -398,
+        "y": 16
+      }
     },
     {
       "name": "Ответ DANIEL",
       "status": "2",
       "bind_to": "7",
       "text": "<p>Ответ DANIEL</p>\n",
-      "id": 11
+      "id": 11,
+      "coords": {
+        "x": 65,
+        "y": 14
+      }
     }
   ],
   "answer_statuses": [
