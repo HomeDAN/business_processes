@@ -29,7 +29,7 @@
             v-for="answer in answers"
             :answer="answer"
             :key="answer.id"
-            @click-answer="selectAnswer(answer.id)"
+            @click-edit-answer="selectAnswer(answer.id)"
         />
     </div>
 </template>
@@ -58,7 +58,9 @@
                 this.answers.push(answer.data[0]);
             }
 
-            this.stylesCoords = 'transform: none; left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
+            if (this.question.coords) {
+                this.stylesCoords = 'transform: none; left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
+            }
         },
         methods: {
             ...mapActions([

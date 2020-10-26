@@ -3,6 +3,7 @@
         <div
             v-drag="{}"
             class="answer_drag"
+            :style="stylesCoords"
         >
             <div
                 class="answer"
@@ -10,20 +11,55 @@
             >
                 {{ answer.name }}
             </div>
+
+            <div
+                class="answer"
+                @click="editAnswer"
+            >edit</div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapActions} from "vuex";
+
     export default {
         name: "answer",
         props: ['answer', 'currentQuestion'],
         data: () => ({
-            currentAnswer: 0
+            currentAnswer: 0,
+            stylesCoords: ''
         }),
+        mounted () {
+            if (this.answer.coords) {
+                this.stylesCoords = 'transform: none; left: ' + this.answer.coords.x + 'px; top: ' + this.answer.coords.y + 'px;';
+            }
+        },
         methods: {
-            selectAnswer () {
-                this.$emit('click-answer', this.answer.id);
+            ...mapActions([
+                'updateAnswer'
+            ]),
+            async selectAnswer (e) {
+                const coords = {
+                    x: e.clientX,
+                    y: e.clientY
+                };
+
+                try {
+                    let res = await this.updateAnswer({
+                        id: this.answer.id,
+                        data: {
+                            coords: coords
+                        }
+                    });
+
+                    console.log(res);
+                } catch (e) {
+                    console.error(e);
+                }
+            },
+            editAnswer () {
+                this.$emit('click-edit-answer', this.answer.id);
             }
         }
     }
