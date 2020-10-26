@@ -33,14 +33,12 @@
     .answer_drag {
         display: inline-block;
     }
-
     .answer {
         border: 1px solid black;
         display: inline-block;
         padding: 10px;
-
         &.selected {
-             background-color: aqua;
-         }
+            background-color: aqua;
+        }
     }
 </style>

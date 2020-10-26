@@ -3,6 +3,7 @@
         <div
             v-drag="{}"
             class="question_drag"
+            :style="stylesCoords"
         >
             <div
                 class="question"
@@ -12,6 +13,12 @@
             >
                 {{ question.name }} (ID: {{ question.id }})
             </div>
+
+            <div
+                class="question"
+                @click="editQuestion"
+            >edit</div>
+
             <div
                 class="question"
                 @click="addAnswer"
@@ -35,7 +42,7 @@
         name: "question",
         props: ['question', 'currentQuestion'],
         data: () => ({
-            idAndCoordsStorage: [],
+            stylesCoords: '',
             answers: [],
             editAnswer: false,
             currentAnswer: 0
@@ -46,43 +53,37 @@
         async mounted () {
             let answer = {};
 
-            //if (Array.isArray(this.question.answers)) {
-                for (let answerId of this.question.asnwers) {
-                    answer = await this.getAnswerById(answerId);
-                    this.answers.push(answer.data[0]);
-                }
-            //}
+            for (let answerId of this.question.asnwers) {
+                answer = await this.getAnswerById(answerId);
+                this.answers.push(answer.data[0]);
+            }
+
+            this.stylesCoords = 'transform: none; left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
         },
         methods: {
             ...mapActions([
-                'getAnswerById'
+                'getAnswerById',
+                'updateQuestion'
             ]),
-            selectQuestion (e) {
-                this.$emit('click-question');
-
-                // Получаем ID и координаты объекта (вопроса)
-                const itemData = {
-                    id: e.target.id,
-                    coords: {
-                        x: e.clientX,
-                        y: e.clientY
-                    }
+            editQuestion () {
+                this.$emit('click-edit-question');
+            },
+            async selectQuestion (e) {
+                const coords = {
+                    x: e.clientX,
+                    y: e.clientY
                 };
 
-                // Поиск, существует объект в масиве или нет
-                let item = this.idAndCoordsStorage.find(i => i.id === itemData.id);
-
-                // Если существует, обновляем координаты, иначе - добавляем новый элемент
-                if (item) {
-                    item.coords.x = itemData.coords.x;
-                    item.coords.y = itemData.coords.y;
-                    console.log("test")
-                } else {
-                    this.idAndCoordsStorage.push(itemData);
+                try {
+                    await this.updateQuestion({
+                        id: e.target.id,
+                        data: {
+                            coords: coords
+                        }
+                    });
+                } catch (e) {
+                    console.error(e);
                 }
-
-                // console.log(this.idAndCoordsStorage);
-                // localStorage.setItem(JSON.stringify(e.target.id), JSON.stringify(itemData))
             },
             addAnswer () {
                 this.$emit('click-question');

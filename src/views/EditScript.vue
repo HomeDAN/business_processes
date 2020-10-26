@@ -11,7 +11,7 @@
             :question="question"
             :key="question.id"
             :currentQuestion="currentQuestion"
-            @click-question="selectQuestion(question.id)"
+            @click-edit-question="selectQuestion(question.id)"
             @click-answer="selectAnswer"
             @is-add-answer="updateCreatingUpdatingState('creatingAnswer')"
         />
