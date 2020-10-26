@@ -41,8 +41,8 @@
             ]),
             async selectAnswer (e) {
                 const coords = {
-                    x: e.clientX,
-                    y: e.clientY
+                    x: parseInt(e.target.parentNode.style.left, 10),
+                    y: parseInt(e.target.parentNode.style.top, 10),
                 };
 
                 try {

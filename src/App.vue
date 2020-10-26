@@ -14,6 +14,7 @@
 
 <style lang="scss">
     #app {
+        position: relative;
         max-width: 1024px;
         margin: 0 auto;
         font-family: Avenir, Helvetica, Arial, sans-serif;
