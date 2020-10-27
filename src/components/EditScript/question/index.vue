@@ -1,7 +1,5 @@
 <template>
     <div class="question_with_answer">
-        <canvas :id="question.id" width="300" height="225"></canvas>
-
         <div
             v-drag="{}"
             class="question_drag"
@@ -58,24 +56,6 @@
             if (this.question.coords) {
                 this.stylesCoords = 'left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
             }
-
-            let canvas = document.getElementById(this.question.id);
-            let context = canvas.getContext("2d");
-
-            // context.moveTo(this.question.coords.x, this.question.coords.y);
-            // context.lineTo(1000, 500);
-
-            context.beginPath();
-            context.moveTo(0, 40);
-            context.lineTo(240, 40);
-            context.moveTo(260, 40);
-            context.lineTo(500, 40);
-            context.moveTo(495, 35);
-            context.lineTo(500, 40);
-            context.lineTo(495, 45);
-
-            context.strokeStyle = "black";
-            context.stroke();
         },
         methods: {
             ...mapActions([
@@ -136,5 +116,21 @@
 
     .question_drag {
         display: inline-block;
+    }
+
+    #svg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    .handle {
+        fill: dodgerblue;
+    }
+
+    .path {
+        fill: none;
+        stroke: dodgerblue;
+        stroke-width: 6;
     }
 </style>
