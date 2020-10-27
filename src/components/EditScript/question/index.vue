@@ -1,5 +1,7 @@
 <template>
     <div class="question_with_answer">
+        <canvas :id="question.id" width="300" height="225"></canvas>
+
         <div
             v-drag="{}"
             class="question_drag"
@@ -51,22 +53,45 @@
             Answer
         },
         async mounted () {
-            let answer = {};
-
-            for (let answerId of this.question.asnwers) {
-                answer = await this.getAnswerById(answerId);
-                this.answers.push(answer.data[0]);
-            }
+            this.setAnswers();
 
             if (this.question.coords) {
                 this.stylesCoords = 'left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
             }
+
+            let canvas = document.getElementById(this.question.id);
+            let context = canvas.getContext("2d");
+
+            // context.moveTo(this.question.coords.x, this.question.coords.y);
+            // context.lineTo(1000, 500);
+
+            context.beginPath();
+            context.moveTo(0, 40);
+            context.lineTo(240, 40);
+            context.moveTo(260, 40);
+            context.lineTo(500, 40);
+            context.moveTo(495, 35);
+            context.lineTo(500, 40);
+            context.lineTo(495, 45);
+
+            context.strokeStyle = "black";
+            context.stroke();
         },
         methods: {
             ...mapActions([
                 'getAnswerById',
                 'updateQuestion'
             ]),
+            async setAnswers () {
+                let answer = {};
+
+                if (typeof this.question.asnwers != 'undefined') {
+                    for (let answerId of this.question.asnwers) {
+                        answer = await this.getAnswerById(answerId);
+                        this.answers.push(answer.data[0]);
+                    }
+                }
+            },
             editQuestion () {
                 this.$emit('click-edit-question');
             },

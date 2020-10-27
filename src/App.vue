@@ -65,5 +65,11 @@
         vertical-align: middle;
     }
 
+    canvas {
+        background-color: #FFFFFF;
+        position: absolute;
+        z-index: -10;
+    }
+
     @import'~bootstrap/dist/css/bootstrap.css';
 </style>
