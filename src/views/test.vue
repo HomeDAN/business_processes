@@ -5,53 +5,40 @@
             <circle class="handle" cx="0" cy="0" r="8" />
             <circle class="handle" cx="0" cy="0" r="8" />
         </svg>
+
+        <svg height="500" width="500">
+            <path id="svg" stroke="black" stroke-width="3" fill="none" d="M15 100 L75 500" />
+        </svg>
     </div>
 </template>
 
 <script>
-    import { gsap, ScrollTrigger, Draggable, MotionPathPlugin, TweenLite } from "gsap/all";
-    gsap.registerPlugin(ScrollTrigger, Draggable, MotionPathPlugin, TweenLite);
+    import { gsap, ScrollTrigger, Draggable, MotionPathPlugin, TweenLite, TimelineMax } from "gsap/all";
+    gsap.registerPlugin(ScrollTrigger, Draggable, MotionPathPlugin, TweenLite, TimelineMax);
 
     export default {
         name: "test",
         mounted () {
-            // Amount to offset control points
-            let bezierWeight = 0.675;
+            let svg = document.querySelector('#svg');
+            let tl = new TimelineMax();
 
-            let handles = document.querySelectorAll(".handle");
-            let path = document.querySelector(".path");
+            // create a timeline
+            tl.add(createLineTween(svg));
 
-            TweenLite.set(handles[0], { x: 400, y: 150 });
-            TweenLite.set(handles[1], { x: 200, y: 350 });
+            // this function creates a single tween that animates the stroke of an svg
+            function createLineTween (svg) {
+                let pathObject = {
+                    length: 0,
+                    pathLength: svg.getTotalLength()
+                };
 
-            Draggable.create(handles, {
-                onDrag: updatePath
-            });
+                let tween = TweenLite.to(pathObject, 2, {
+                    length: pathObject.pathLength,
+                    onUpdateParams: [pathObject, svg],
+                    immediateRender: true
+                });
 
-            updatePath();
-
-            function updatePath () {
-                // migrate to 3
-                let x1 = gsap.getProperty(handles[0], "x");
-                let y1 = gsap.getProperty(handles[0], "y");
-
-                let x4 = gsap.getProperty(handles[1], "x");
-                let y4 = gsap.getProperty(handles[1], "y");
-
-                // let x1 = handles[0]._gsTransform.x;
-                // let y1 = handles[0]._gsTransform.y;
-                //
-                // let x4 = handles[1]._gsTransform.x;
-                // let y4 = handles[1]._gsTransform.y;
-
-                let dx = Math.abs(x4 - x1) * bezierWeight;
-
-                let x2 = x1 - dx;
-                let x3 = x4 + dx;
-
-                let data = `M${x1} ${y1} C ${x2} ${y1} ${x3} ${y4} ${x4} ${y4}`;
-
-                path.setAttribute("d", data);
+                return tween;
             }
         }
     }
