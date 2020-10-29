@@ -1,26 +1,48 @@
-# business_processes
+# Скрит для отдела продаж
 
-## Project setup
+## Установка
 ```
 npm install
 npm i json-server -g
 json-server --watch db.json
 ```
 
-### Compiles and hot-reloads for development
+### Компиляция и горячая перезагрузка для разработки
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Компиляция для production
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Пояснения по работе приложения
+### Работа с базой данных
+Я использую файл db.json в корне проекта как базу данных.  
+Сейчас есть 4 сущности (массивы объектов):  
+**scripts  
+questions  
+answers  
+answer_statuses**  
+связанные между собой:  
+**scripts** содержит массив **questions** с _id_ вопросов (вопросы принадлежат к скрипту)  
+**questions** содержит массив **answers** с _id_ ответов (ответы принадлежат вопросу)  
+**answers** имеет поле _status_ - указывает на статус ответов из **answer_statuses**  
+**answers** имеет поле _bind_to_ - указывает на следующий вопрос из **questions**
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**scripts** и **questions** содержат объект _coords_ - при их перетаскивании сохраняется положение блока на экране.  
+Про редактирование скрипта читай ниже.
+
+### Роутинг
+Файл с роутами находится в scr/router/index.js  
+**Домашняя страница** - форма для создания скрипта, список скриптов с ссылками на редактирование и запуск.  
+**Настройки** - редактирование, удаление статусов ответов. Доступна для добавления настроек.  
+**Test** - это для тестов.
+
+### Редактирование скрипта
+
+
+
+### Запуск скрипта
+
