@@ -7,7 +7,6 @@
         >
             <div
                 class="question"
-                :class="{ selected: question.id == currentQuestion }"
                 @click="selectQuestion"
                 v-bind:id="question.id"
             >
