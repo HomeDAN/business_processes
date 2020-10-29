@@ -5,10 +5,6 @@
             <circle class="handle" cx="0" cy="0" r="8" />
             <circle class="handle" cx="0" cy="0" r="8" />
         </svg>
-
-        <svg height="500" width="500">
-            <path id="svg" stroke="black" stroke-width="3" fill="none" d="M15 100 L75 500" />
-        </svg>
     </div>
 </template>
 
@@ -43,3 +39,4 @@
         }
     }
 </script>
+

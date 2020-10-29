@@ -23,6 +23,7 @@
                 class="question"
                 @click="addAnswer"
             >add</div>
+
         </div>
 
         <answer
@@ -42,6 +43,7 @@
         name: "question",
         props: ['question', 'currentQuestion'],
         data: () => ({
+            test: '',
             stylesCoords: '',
             answers: [],
             editAnswer: false,
@@ -56,6 +58,8 @@
             if (this.question.coords) {
                 this.stylesCoords = 'left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
             }
+
+            this.test = 'width: ' + (this.question.coords.x - this.question.coords.y)
         },
         methods: {
             ...mapActions([
@@ -88,6 +92,7 @@
                             coords: coords
                         }
                     });
+
                 } catch (e) {
                     console.error(e);
                 }
@@ -104,6 +109,9 @@
 </script>
 
 <style lang="scss" scoped>
+
+
+
     .question {
         border: 1px solid black;
         display: inline-block;
@@ -118,10 +126,16 @@
         display: inline-block;
     }
 
+
+
     #svg {
-        position: fixed;
+        position: absolute;
+        outline: 1px solid red;
+        z-index: -1;
         width: 100%;
         height: 100%;
+
+
     }
 
     .handle {

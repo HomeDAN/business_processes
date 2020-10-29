@@ -1,5 +1,9 @@
 <template>
     <div class="edit-script">
+        <svg id="svg" >
+            <path class="path" />
+            <circle v-drag="{}" class="handle" cx="200" cy="200" r="8" />
+        </svg>
         <button
             @click="updateCreatingUpdatingState('creatingQuestion')"
         >
@@ -124,3 +128,19 @@
         }
     }
 </script>
+
+
+<style>
+
+
+    #svg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        left: 0;
+        transform-origin: 50% 50%; /* center of rotation is set to the center of the element */
+        transform: scale(1,-1);
+
+    }
+</style>

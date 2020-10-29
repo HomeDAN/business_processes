@@ -45,6 +45,8 @@
                     y: parseInt(e.target.parentNode.style.top, 10),
                 };
 
+                console.log('answer:', this.test)
+
                 try {
                     await this.updateAnswer({
                         id: this.answer.id,
@@ -64,6 +66,7 @@
 </script>
 
 <style lang="scss">
+
     .answer_drag {
         display: inline-block;
     }
