@@ -1,6 +1,10 @@
 <template>
     <div class="create_script">
-        <form @submit.prevent="addScript">
+        <h3>Создать новый скрипт</h3>
+        <form
+            @submit.prevent="addScript"
+            class="create_script_form"
+        >
             <input
                 type="text"
                 id="name"
@@ -9,6 +13,7 @@
 
             <input
                 type="submit"
+                value="создать"
             />
         </form>
     </div>
@@ -34,3 +39,9 @@
         }
     }
 </script>
+
+<style>
+    .create_script_form {
+        padding: 10px;
+    }
+</style>
