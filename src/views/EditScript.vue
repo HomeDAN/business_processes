@@ -11,9 +11,9 @@
             :question="question"
             :key="question.id"
             :currentQuestion="currentQuestion"
-            @click-question="selectQuestion(question.id)"
+            @click-edit-question="selectQuestion(question.id)"
             @click-answer="selectAnswer"
-            @is-add-answer="updateCreatingUpdatingState('creatingAnswer')"
+            @is-add-answer="selectCreateQuestion(question.id)"
         />
 
         <create-question
@@ -83,6 +83,11 @@
             this.$store.dispatch('setCurrentScriptId', this.$route.params.id);
             this.$store.dispatch('setQuestionsInCurrentScript');
         },
+        watch: {
+            questionsInCurrentScript () {
+                this.$store.dispatch('setQuestionsInCurrentScript');
+            }
+        },
         methods: {
             ...mapActions([
                 'getScriptById',
@@ -102,6 +107,10 @@
             selectAnswer (id) {
                 this.currentAnswer = id;
                 this.updateCreatingUpdatingState('editingAnswer');
+            },
+            selectCreateQuestion (id) {
+                this.currentQuestion = id;
+                this.updateCreatingUpdatingState('creatingAnswer');
             },
             updateCreatingUpdatingState (changingNow) {
                 for (let state in this.CreatingUpdatingState) {

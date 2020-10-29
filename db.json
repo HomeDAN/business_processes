@@ -1,147 +1,203 @@
 {
-  "scripts": [
-    {
-      "name": "первый скрипт",
-      "id": 1,
-      "questions": [
-        1,
-        2,
-        3
-      ]
-    },
-    {
-      "name": "тест",
-      "questions": [
-        4,
-        5,
-        6
-      ],
-      "id": 2
-    }
-  ],
-  "questions": [
-    {
-      "name": "Первый вопрос",
-      "text": "Привет. ",
-      "id": 1,
-      "asnwers": [
-        1,
-        2,
-        7
-      ]
-    },
-    {
-      "name": "Второй вопрос",
-      "text": "Второй вопрос (2)",
-      "id": 2,
-      "asnwers": [
-        3,
-        4
-      ]
-    },
-    {
-      "name": "Второй вопрос",
-      "text": "Второй вопрос (3)",
-      "id": 3,
-      "asnwers": [
-        5,
-        6
-      ]
-    },
-    {
-      "name": "Первый вопрос",
-      "text": "<h2 data-tomark-pass=\"\">heading\n</h2><ol data-tomark-pass=\"\"><li data-tomark-pass=\"\">laksdflaskdjf</li><li data-tomark-pass=\"\">alsdkfjlaskdjf</li><li data-tomark-pass=\"\">laskdfjlaskdjflaksdjf</li></ol>asdfasdfasdfasdf\n",
-      "answers": [],
-      "id": 4,
-      "asnwers": [
-        8,
-        9
-      ]
-    },
-    {
-      "name": "второй вопрос (2)",
-      "text": "<p>фывафывафыва<br>\nфывафыва<br>\nфывафыва</p>\n",
-      "answers": [],
-      "id": 5
-    },
-    {
-      "name": "Третий вопрос",
-      "text": "<h3>фывафывафыва</h3>\n<p><br data-tomark-pass=\"\"><br>\nфывафывафывафыва</p>\n",
-      "answers": [],
-      "id": 6
-    }
-  ],
-  "answers": [
-    {
-      "name": "Первый ответ",
-      "text": "к третьему вопросу",
-      "status": "1",
-      "id": 1,
-      "bind_to": "3"
-    },
-    {
-      "name": "Второй ответ",
-      "text": "ко второму вопросу",
-      "status": "2",
-      "id": 2,
-      "bind_to": "2"
-    },
-    {
-      "name": "Ответ",
-      "text": "Ответ (2)",
-      "id": 3
-    },
-    {
-      "name": "test",
-      "text": "test (2)",
-      "id": 4
-    },
-    {
-      "name": "Ответ",
-      "text": "Ответ (3)",
-      "status": "1",
-      "id": 5
-    },
-    {
-      "name": "test",
-      "text": "test (3)",
-      "status": "1",
-      "id": 6
-    },
-    {
-      "name": "тест",
-      "text": "tesat",
-      "status": "1",
-      "bind_to": "2",
-      "id": 7
-    },
-    {
-      "name": "тест",
-      "status": "1",
-      "text": "<h3 data-tomark-pass=\"\">asdfjkasdlfkjasdflkjas\n</h3>slafdjkaoweirlsdkfasdf\n<ol data-tomark-pass=\"\"><li data-tomark-pass=\"\">lkasdj</li><li data-tomark-pass=\"\">asldkfj</li><li data-tomark-pass=\"\">asdlkfj</li></ol>ведет ко второму вопросу\n",
-      "id": 8,
-      "bind_to": "5"
-    },
-    {
-      "name": "к вопросу с id = 6",
-      "status": "2",
-      "bind_to": "6",
-      "text": "<p>asdfasdf</p>\n<p>ведет на третий вопрос.</p>\n",
-      "id": 9
-    }
-  ],
-  "answer_statuses": [
-    {
-      "id": "1",
-      "text": "bad"
-    },
-    {
-      "id": "2",
-      "text": "good"
-    },
-    {
-      "text": "ugly",
-      "id": "P07_Dps"
-    }
-  ]
+    "scripts": [
+        {
+            "name": "тест",
+            "questions": [
+                1,
+                2,
+                3,
+                6
+            ],
+            "id": 1
+        },
+        {
+            "name": "еще тест",
+            "questions": [
+                4,
+                5
+            ],
+            "id": 2
+        }
+    ],
+    "questions": [
+        {
+            "name": "Первый вопрос",
+            "text": "<p>lakjdsflasjdf</p>\n<h5>asdfasdfasdf</h5>\n",
+            "answers": [],
+            "id": 1,
+            "coords": {
+                "x": -77,
+                "y": 12
+            },
+            "asnwers": [
+                7,
+                8
+            ]
+        },
+        {
+            "name": "Второй вопрос",
+            "text": "<p>Второй вопрос<br>\nВторой вопрос<br>\n<br data-tomark-pass=\"\"></p>\n<h3>Второй вопрос</h3>\n<ol>\n<li>фывафыва</li>\n<li>фывафывафыва</li>\n<li>фывафывафыва</li>\n</ol>\n",
+            "answers": [],
+            "id": 2,
+            "coords": {
+                "x": -343,
+                "y": 165
+            },
+            "asnwers": [
+                10
+            ]
+        },
+        {
+            "name": "Второй вопрос",
+            "text": "<p>фывафывафыв<br>\nфывафыва<br>\nфыва</p>\n",
+            "answers": [],
+            "id": 3,
+            "coords": {
+                "x": 180,
+                "y": 64
+            },
+            "asnwers": [
+                9
+            ]
+        },
+        {
+            "name": "фывафыв",
+            "text": "<p>фывафыва</p>\n",
+            "answers": [],
+            "id": 4,
+            "coords": {
+                "x": -22,
+                "y": 79
+            },
+            "asnwers": [
+                11
+            ]
+        },
+        {
+            "name": "тест",
+            "text": "<p>фывафыва</p>\n",
+            "answers": [],
+            "id": 5,
+            "coords": {
+                "x": 68,
+                "y": 385
+            }
+        },
+        {
+            "name": "test",
+            "text": "<p>asdfasdf</p>\n",
+            "answers": [],
+            "id": 6,
+            "coords": {
+                "x": 39,
+                "y": 291
+            }
+        }
+    ],
+    "answers": [
+        {
+            "name": "тест",
+            "status": "1",
+            "bind_to": "2",
+            "text": "<p>asdfasdfasdf</p>\n",
+            "id": 1
+        },
+        {
+            "name": "тест",
+            "bind_to": "2",
+            "text": "<p>sdfasdfa</p>\n",
+            "id": 2
+        },
+        {
+            "name": "тест",
+            "bind_to": "2",
+            "text": "<p>sdfasdf</p>\n",
+            "id": 3
+        },
+        {
+            "name": "тест",
+            "status": "1",
+            "bind_to": "2",
+            "text": "<p>asdfasdfasdf</p>\n",
+            "id": 4
+        },
+        {
+            "name": "тест",
+            "bind_to": "2",
+            "text": "<p>asdfasdf<br>\nasdfasdf<br>\nasdfasdf</p>\n",
+            "id": 5
+        },
+        {
+            "name": "",
+            "text": "",
+            "id": 6
+        },
+        {
+            "name": "тест",
+            "status": "2",
+            "bind_to": "2",
+            "text": "<p>еуыфафыва<br>\nфывафывафыва</p>\n",
+            "id": 7,
+            "coords": {
+                "x": -286,
+                "y": 77
+            }
+        },
+        {
+            "name": "тестетс",
+            "status": "2",
+            "bind_to": "3",
+            "text": "<p>ыфвафывафы<br>\nвафылвоарфыва<br>\nэрявоалюмтапи</p>\n",
+            "id": 8,
+            "coords": {
+                "x": 126,
+                "y": 38
+            }
+        },
+        {
+            "name": "test",
+            "status": "2",
+            "text": "<p>ывафывафы<br>\nафыва<br>\nфывафывафыва</p>\n",
+            "id": 9,
+            "coords": {
+                "x": -19,
+                "y": 246
+            },
+            "bind_to": "6"
+        },
+        {
+            "name": "ыфва",
+            "status": "2",
+            "text": "<p>фывафывафывафыв</p>\n",
+            "id": 10,
+            "coords": {
+                "x": -443,
+                "y": 302
+            }
+        },
+        {
+            "name": "Привет",
+            "text": "<p>фывафыва</p>\n",
+            "id": 11,
+            "bind_to": "5",
+            "coords": {
+                "x": 26,
+                "y": 211
+            }
+        }
+    ],
+    "answer_statuses": [
+        {
+            "id": "1",
+            "text": "bad"
+        },
+        {
+            "id": "2",
+            "text": "good"
+        },
+        {
+            "text": "ugly",
+            "id": "P07_Dps"
+        }
+    ]
 }

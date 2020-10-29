@@ -7,11 +7,15 @@
         </div>
 
         <router-view/>
+
     </div>
+
 </template>
 
 <style lang="scss">
     #app {
+        max-width: 1024px;
+        margin: 0 auto;
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -59,6 +63,12 @@
     .modal-wrapper {
         display: table-cell;
         vertical-align: middle;
+    }
+
+    canvas {
+        background-color: #FFFFFF;
+        position: absolute;
+        z-index: -10;
     }
 
     @import'~bootstrap/dist/css/bootstrap.css';

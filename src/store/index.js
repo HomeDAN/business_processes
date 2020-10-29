@@ -37,6 +37,9 @@ export default new Vuex.Store({
         addItemScripts (state, script) {
             state.scripts.push(script);
         },
+        addQuestion (state, question) {
+            state.questions.push(question);
+        },
         setAnswerStatuses (state, answerStatuses) {
             state.answerStatuses = answerStatuses;
         },
@@ -66,7 +69,15 @@ export default new Vuex.Store({
             }
         },
         async createQuestion (context, data) {
-            return axios.post('http://localhost:3000/questions', data);
+            try {
+                let script = await axios.post('http://localhost:3000/questions', data);
+                context.commit('addQuestion', script.data);
+
+                return script;
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
         },
         async createAnswer (context, data) {
             return axios.post('http://localhost:3000/answers', data);

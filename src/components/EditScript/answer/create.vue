@@ -136,10 +136,12 @@
                 let createdAnswer = await this.createAnswer(objFormData);
                 let updatedQuestion = await this.getQuestionById(this.currentQuestion);
 
-                let asnwers = updatedQuestion.data[0].asnwers;
+                let asnwers = [];
 
-                if (typeof asnwers === 'undefined') {
+                if (typeof updatedQuestion.data[0].asnwers === 'undefined') {
                     asnwers = [];
+                } else {
+                    asnwers = updatedQuestion.data[0].asnwers;
                 }
 
                 asnwers.push(createdAnswer.data.id);

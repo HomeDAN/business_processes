@@ -1,54 +1,45 @@
 <template>
     <div>
-        <div v-if="showModal">
-            <transition name="modal">
-                <div class="modal-mask">
-                    <div class="modal-wrapper">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true" @click="showModal = false">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Modal body text goes here.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-        </div>
-        <button @click="showModal = true">Click</button>
+        <svg id="svg">
+            <path class="path" />
+            <circle class="handle" cx="0" cy="0" r="8" />
+            <circle class="handle" cx="0" cy="0" r="8" />
+        </svg>
+
+        <svg height="500" width="500">
+            <path id="svg" stroke="black" stroke-width="3" fill="none" d="M15 100 L75 500" />
+        </svg>
     </div>
 </template>
 
 <script>
+    import { gsap, ScrollTrigger, Draggable, MotionPathPlugin, TweenLite, TimelineMax } from "gsap/all";
+    gsap.registerPlugin(ScrollTrigger, Draggable, MotionPathPlugin, TweenLite, TimelineMax);
+
     export default {
         name: "test",
-        data: () => ({
-            showModal: false
-        })
+        mounted () {
+            let svg = document.querySelector('#svg');
+            let tl = new TimelineMax();
+
+            // create a timeline
+            tl.add(createLineTween(svg));
+
+            // this function creates a single tween that animates the stroke of an svg
+            function createLineTween (svg) {
+                let pathObject = {
+                    length: 0,
+                    pathLength: svg.getTotalLength()
+                };
+
+                let tween = TweenLite.to(pathObject, 2, {
+                    length: pathObject.pathLength,
+                    onUpdateParams: [pathObject, svg],
+                    immediateRender: true
+                });
+
+                return tween;
+            }
+        }
     }
 </script>
-
-<style>
-    .modal-mask {
-        position: fixed;
-        z-index: 9998;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .5);
-        display: table;
-        transition: opacity .3s ease;
-    }
-
-    .modal-wrapper {
-        display: table-cell;
-        vertical-align: middle;
-    }
-</style>

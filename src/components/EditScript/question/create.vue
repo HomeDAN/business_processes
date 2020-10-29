@@ -89,6 +89,7 @@
                 objFormData.answers = [];
 
                 // todo: проверка на статус
+                // todo: это должно быть в экшонах в схроне, но я не понимаю пока как
                 let createdQuestion = await this.createQuestion(objFormData);
                 let updatedScript = await this.getScriptById(this.currentScriptId);
 

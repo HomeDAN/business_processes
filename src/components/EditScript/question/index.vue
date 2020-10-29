@@ -3,14 +3,21 @@
         <div
             v-drag="{}"
             class="question_drag"
+            :style="stylesCoords"
         >
             <div
                 class="question"
-                :class="{ selected: question.id == currentQuestion }"
                 @click="selectQuestion"
+                v-bind:id="question.id"
             >
                 {{ question.name }} (ID: {{ question.id }})
             </div>
+
+            <div
+                class="question"
+                @click="editQuestion"
+            >edit</div>
+
             <div
                 class="question"
                 @click="addAnswer"
@@ -21,7 +28,7 @@
             v-for="answer in answers"
             :answer="answer"
             :key="answer.id"
-            @click-answer="selectAnswer(answer.id)"
+            @click-edit-answer="selectAnswer(answer.id)"
         />
     </div>
 </template>
@@ -34,6 +41,7 @@
         name: "question",
         props: ['question', 'currentQuestion'],
         data: () => ({
+            stylesCoords: '',
             answers: [],
             editAnswer: false,
             currentAnswer: 0
@@ -42,21 +50,46 @@
             Answer
         },
         async mounted () {
-            let answer = {};
+            this.setAnswers();
 
-            //if (Array.isArray(this.question.answers)) {
-                for (let answerId of this.question.asnwers) {
-                    answer = await this.getAnswerById(answerId);
-                    this.answers.push(answer.data[0]);
-                }
-            //}
+            if (this.question.coords) {
+                this.stylesCoords = 'left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
+            }
         },
         methods: {
             ...mapActions([
-                'getAnswerById'
+                'getAnswerById',
+                'updateQuestion'
             ]),
-            selectQuestion () {
-                this.$emit('click-question');
+            async setAnswers () {
+                let answer = {};
+
+                if (typeof this.question.asnwers != 'undefined') {
+                    for (let answerId of this.question.asnwers) {
+                        answer = await this.getAnswerById(answerId);
+                        this.answers.push(answer.data[0]);
+                    }
+                }
+            },
+            editQuestion () {
+                this.$emit('click-edit-question');
+            },
+            async selectQuestion (e) {
+                const coords = {
+                    x: parseInt(e.target.parentNode.style.left, 10),
+                    y: parseInt(e.target.parentNode.style.top, 10),
+                };
+
+                try {
+                    await this.updateQuestion({
+                        id: e.target.id,
+                        data: {
+                            coords: coords
+                        }
+                    });
+                } catch (e) {
+                    console.error(e);
+                }
             },
             addAnswer () {
                 this.$emit('click-question');
@@ -82,5 +115,21 @@
 
     .question_drag {
         display: inline-block;
+    }
+
+    #svg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+    }
+
+    .handle {
+        fill: dodgerblue;
+    }
+
+    .path {
+        fill: none;
+        stroke: dodgerblue;
+        stroke-width: 6;
     }
 </style>
