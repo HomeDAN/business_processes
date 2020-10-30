@@ -1,30 +1,30 @@
 <template>
-    <div class="question_with_answer">
-        <div
-            v-drag="{}"
-            class="question_drag"
-            :style="stylesCoords"
-        >
-            <div
+    <g
+        class="question_with_answer"
+
+      >
+
+            <rect
                 class="question"
                 :class="{ selected: question.id == currentQuestion }"
                 @click="selectQuestion"
                 v-bind:id="question.id"
-            >
-                {{ question.name }} (ID: {{ question.id }})
-            </div>
+                style="fill: green"
 
-            <div
+            />
+
+        <text fill="red">{{ question.name }} (ID: {{ question.id }})</text>
+
+            <rect
                 class="question"
                 @click="editQuestion"
-            >edit</div>
+            >edit</rect>
 
-            <div
+            <rect
                 class="question"
                 @click="addAnswer"
-            >add</div>
+            >add</rect>
 
-        </div>
 
         <answer
             v-for="answer in answers"
@@ -32,7 +32,7 @@
             :key="answer.id"
             @click-edit-answer="selectAnswer(answer.id)"
         />
-    </div>
+    </g>
 </template>
 
 <script>
@@ -43,7 +43,6 @@
         name: "question",
         props: ['question', 'currentQuestion'],
         data: () => ({
-            test: '',
             stylesCoords: '',
             answers: [],
             editAnswer: false,
@@ -56,10 +55,9 @@
             this.setAnswers();
 
             if (this.question.coords) {
-                this.stylesCoords = 'left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
+                this.stylesCoords = 'x: ' + this.question.coords.x + 'px; y: ' + this.question.coords.y + 'px;';
             }
 
-            this.test = 'width: ' + (this.question.coords.x - this.question.coords.y)
         },
         methods: {
             ...mapActions([
@@ -128,23 +126,8 @@
 
 
 
-    #svg {
-        position: absolute;
-        outline: 1px solid red;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-
-
-    }
-
     .handle {
         fill: dodgerblue;
     }
 
-    .path {
-        fill: none;
-        stroke: dodgerblue;
-        stroke-width: 6;
-    }
 </style>

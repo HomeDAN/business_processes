@@ -1,15 +1,11 @@
 <template>
-    <div class="edit-script">
-        <svg id="svg" >
-            <path class="path" />
-            <circle v-drag="{}" class="handle" cx="200" cy="200" r="8" />
-        </svg>
+    <div class="edit-script__wrapper">
         <button
             @click="updateCreatingUpdatingState('creatingQuestion')"
         >
             Создать вопрос
         </button>
-
+    <svg class="edit-script">
         <question
             v-for="question in questionsInCurrentScript"
             :question="question"
@@ -43,6 +39,7 @@
             :current="currentAnswer"
             @close-modal="closeAllModal"
         />
+    </svg>
     </div>
 </template>
 
@@ -129,18 +126,12 @@
     }
 </script>
 
-
 <style>
-
-
-    #svg {
+    .edit-script {
         position: fixed;
+        left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1;
-        left: 0;
-        transform-origin: 50% 50%; /* center of rotation is set to the center of the element */
-        transform: scale(1,-1);
-
     }
+
 </style>
