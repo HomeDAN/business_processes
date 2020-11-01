@@ -5,7 +5,7 @@
         >
             Создать вопрос
         </button>
-    <svg class="edit-script">
+    <svg id="svg" class="edit-script" width="100%" height="100%">
         <question
             v-for="question in questionsInCurrentScript"
             :question="question"
@@ -127,8 +127,16 @@
 </script>
 
 <style>
+    .box {
+        margin: auto;
+        position: center;
+        display: block;
+    }
+
+
     .edit-script {
         position: fixed;
+        top: 150px;
         left: 0;
         width: 100%;
         height: 100%;

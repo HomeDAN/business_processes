@@ -1,23 +1,36 @@
 <template>
-    <div class="">
-        <div
-            v-drag="{}"
-            class="answer_drag"
-            :style="stylesCoords"
-        >
-            <div
-                class="answer"
-                @click="selectAnswer"
-            >
-                {{ answer.name }}
-            </div>
 
-            <div
-                class="answer"
-                @click="editAnswer"
-            >edit</div>
-        </div>
-    </div>
+    <g
+        class="answer_drag"
+        :transform="stylesCoords"
+        v-bind:id="answer.id"
+        ref="box"
+    >
+        <circle cx="100" cy="0" r="20" fill="aqua"></circle>
+        <rect
+            class="answer"
+            @click="selectAnswer"
+            width="200"
+            height="80"
+            fill="orange"
+            :style="cursor"
+            @mousedown="drag"
+            @mouseup="drop"
+        ></rect>
+
+        <text x="20" y="20" fill="white">{{ answer.name }}</text>
+
+        <rect
+            width="80"
+            height="80"
+            fill="grey"
+            x="200"
+            class="answer"
+            @click="editAnswer"
+        ></rect>
+        <text x="225" y="45" fill="white">edit</text>
+    </g>
+
 </template>
 
 <script>
@@ -28,12 +41,25 @@
         props: ['answer', 'currentQuestion'],
         data: () => ({
             currentAnswer: 0,
-            stylesCoords: ''
+            stylesCoords: '',
+            square: {
+                x: 50,
+                y: 50,
+            },
+            dragOffsetX: null,
+            dragOffsetY: null
         }),
+
         mounted () {
             if (this.answer.coords) {
-                this.stylesCoords = 'transform: none; left: ' + this.answer.coords.x + 'px; top: ' + this.answer.coords.y + 'px;';
+                this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`
             }
+
+        },
+        computed: {
+            cursor() {
+                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`
+            },
         },
         methods: {
             ...mapActions([
@@ -41,11 +67,9 @@
             ]),
             async selectAnswer (e) {
                 const coords = {
-                    x: parseInt(e.target.parentNode.style.left, 10),
-                    y: parseInt(e.target.parentNode.style.top, 10),
+                    x: e.offsetX - this.square.x,
+                    y: e.offsetY - this.square.y,
                 };
-
-                console.log('answer:', this.test)
 
                 try {
                     await this.updateAnswer({
@@ -60,7 +84,21 @@
             },
             editAnswer () {
                 this.$emit('click-edit-answer', this.answer.id);
-            }
+            },
+
+            drag({offsetX, offsetY}) {
+                this.dragOffsetX = offsetX - this.square.x;
+                this.dragOffsetY = offsetY - this.square.y;
+                // this.stylesCoords = `translate(${offsetX}, ${offsetY})`
+                this.$refs.box.addEventListener('mousemove', this.move)
+            },
+            drop() {
+                this.dragOffsetX = this.dragOffsetY = null;
+                this.$refs.box.removeEventListener('mousemove', this.move)
+            },
+            move({offsetX, offsetY}) {
+                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`
+            },
         }
     }
 </script>

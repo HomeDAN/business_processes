@@ -8,6 +8,7 @@ import 'vue-mindmap/dist/vue-mindmap.css'
 
 Vue.use(Mindmap)
 
+
 import drag from "v-drag";
 Vue.use(drag);
 
