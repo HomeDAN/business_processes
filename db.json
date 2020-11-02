@@ -15,24 +15,26 @@
     {
       "name": "еще тест",
       "questions": [
-        4,
-        5,
-        9
+        4
       ],
       "id": 2
+    },
+    {
+      "name": "епт",
+      "questions": [],
+      "id": 3
     }
   ],
   "questions": [
     {
       "name": "Первый вопрос",
       "text": "<p>lakjdsflasjdf</p>\n<h5>asdfasdfasdf</h5>\n",
-      "answers": [],
       "id": 1,
       "coords": {
-        "x": 60,
+        "x": 560,
         "y": 380
       },
-      "asnwers": [
+      "answers": [
         7,
         8
       ]
@@ -40,51 +42,38 @@
     {
       "name": "Второй вопрос",
       "text": "<p>Второй вопрос<br>\nВторой вопрос<br>\n<br data-tomark-pass=\"\"></p>\n<h3>Второй вопрос</h3>\n<ol>\n<li>фывафыва</li>\n<li>фывафывафыва</li>\n<li>фывафывафыва</li>\n</ol>\n",
-      "answers": [],
       "id": 2,
       "coords": {
         "x": -137,
         "y": 15
       },
-      "asnwers": [
+      "answers": [
         10
       ]
     },
     {
       "name": "Второй вопрос",
       "text": "<p>фывафывафыв<br>\nфывафыва<br>\nфыва</p>\n",
-      "answers": [],
       "id": 3,
       "coords": {
         "x": -327,
         "y": -25
       },
-      "asnwers": [
+      "answers": [
         9
       ]
     },
     {
       "name": "фывафыв",
       "text": "<p>фывафыва</p>\n",
-      "answers": [],
       "id": 4,
       "coords": {
         "x": 278,
         "y": 186
       },
-      "asnwers": [
+      "answers": [
         11
       ]
-    },
-    {
-      "name": "тест",
-      "text": "<p>фывафыва</p>\n",
-      "answers": [],
-      "id": 5,
-      "coords": {
-        "x": 68,
-        "y": 385
-      }
     },
     {
       "name": "test",
@@ -99,40 +88,25 @@
     {
       "name": "SVG Вопрос",
       "text": "<p>SVG Вопрос</p>\n",
-      "answers": [],
       "id": 7,
       "coords": {
         "x": -208,
         "y": -662
       },
-      "asnwers": [
+      "answers": [
         12
       ]
     },
     {
       "name": "SVG вопрос",
       "text": "",
-      "answers": [],
       "id": 8,
       "coords": {
         "x": 939,
         "y": 155
       },
-      "asnwers": [
+      "answers": [
         14
-      ]
-    },
-    {
-      "name": "Daniel вопрос",
-      "text": "",
-      "answers": [],
-      "id": 9,
-      "coords": {
-        "x": 112,
-        "y": 13
-      },
-      "asnwers": [
-        13
       ]
     }
   ],
@@ -181,8 +155,8 @@
       "text": "<p>еуыфафыва<br>\nфывафывафыва</p>\n",
       "id": 7,
       "coords": {
-        "x": 19,
-        "y": 543
+        "x": 402,
+        "y": 556
       }
     },
     {
@@ -202,8 +176,8 @@
       "text": "<p>ывафывафы<br>\nафыва<br>\nфывафывафыва</p>\n",
       "id": 9,
       "coords": {
-        "x": -50,
-        "y": 325
+        "x": 108,
+        "y": 264
       },
       "bind_to": "6"
     },
@@ -213,8 +187,8 @@
       "text": "<p>фывафывафывафыв</p>\n",
       "id": 10,
       "coords": {
-        "x": -50,
-        "y": 469
+        "x": 523,
+        "y": 461
       }
     },
     {
@@ -233,23 +207,17 @@
       "text": "<p>SVG ответ</p>\n",
       "id": 12,
       "coords": {
-        "x": -50,
-        "y": 401
+        "x": 967,
+        "y": 551
       }
-    },
-    {
-      "name": "Daniel ответ",
-      "bind_to": "9",
-      "text": "",
-      "id": 13
     },
     {
       "name": "555555555555",
       "text": "",
       "id": 14,
       "coords": {
-        "x": 572,
-        "y": 489
+        "x": 573,
+        "y": 442
       }
     }
   ],

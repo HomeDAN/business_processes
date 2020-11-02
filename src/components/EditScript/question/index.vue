@@ -1,58 +1,63 @@
 <template>
     <g class="q_a_wrapper">
-    <g
-        class="question_with_answer"
-        v-bind:id="question.id"
-        :transform="stylesCoords"
-        ref="box"
-    >
-        <path id="test" :d="pathCoords" fill="transparent" stroke="black" stroke-width="20"></path>
+        <g
+                class="question_with_answer"
+                v-bind:id="question.id"
+                :transform="stylesCoords"
+                ref="box"
+        >
+            <path
+                    id="test"
+                    :d="pathCoords"
+                    fill="transparent"
+                    stroke="black"
+                    stroke-width="20"></path>
 
-        <circle cx="100" cy="80" r="20" fill="aqua"></circle>
-        <rect
-                class="question"
-                :class="{ selected: question.id == currentQuestion }"
-                width="200"
-                height="80"
-                fill="green"
-                :style="cursor"
-                @mousedown="drag"
-                @mouseup="drop"
+            <circle cx="100" cy="80" r="20" fill="aqua"></circle>
+            <rect
+                    class="question"
+                    :class="{ selected: question.id == currentQuestion }"
+                    width="200"
+                    height="80"
+                    fill="green"
+                    :style="cursor"
+                    @mousedown="drag"
+                    @mouseup="drop"
             />
             <text
-                fill="white" y="45" x="30"
-                @click="selectQuestion"
+                    fill="white" y="45" x="30"
+                    @click="selectQuestion"
             >
                 {{ question.name }} (ID: {{ question.id }})
             </text>
 
             <rect
-                y="0" x="200"
-                style="fill: blue"
-                width="80"
-                height="80"
-                class="question"
-                @click="editQuestion"
+                    y="0" x="200"
+                    style="fill: blue"
+                    width="80"
+                    height="80"
+                    class="question"
+                    @click="editQuestion"
             ></rect>
             <text fill="white" y="45" x="225">Edit</text>
 
             <rect
-                y="0" x="280"
-                style="fill: brown"
-                width="80"
-                height="80"
-                class="question"
-                @click="addAnswer"
+                    y="0" x="280"
+                    style="fill: brown"
+                    width="80"
+                    height="80"
+                    class="question"
+                    @click="addAnswer"
             ></rect>
             <text fill="white" y="45" x="305">Add</text>
+        </g>
 
-    </g>
-    <answer
-            v-for="answer in answers"
-            :answer="answer"
-            :key="answer.id"
-            @click-edit-answer="selectAnswer(answer.id)"
-    />
+        <answer
+                v-for="answer in answers"
+                :answer="answer"
+                :key="answer.id"
+                @click-edit-answer="selectAnswer(answer.id)"
+        />
     </g>
 </template>
 
@@ -79,57 +84,43 @@
         components: {
             Answer
         },
-        async mounted () {
-            this.setAnswers();
+        async mounted() {
+            this.answers = await this.getAnswersOfQuestionById(this.question.id);
 
-            if (this.question.coords) {
-
-                this.stylesCoords =  `translate(${this.question.coords.x}, ${this.question.coords.y})`
-                this.pathCoords = `M 0 0 L${this.question.coords.x} ${this.question.coords.y}`
-                console.log(JSON.parse(JSON.stringify(this.answers)))
-
+            for (let answer of this.answers) {
+                console.log('answer.coords.x', answer.coords.x);
+                console.log('answer.coords.y', answer.coords.y);
+                this.pathCoords = `M 0 0 L${answer.coords.x - this.question.coords.x} ${answer.coords.y - this.question.coords.y}`;
             }
 
-
+            if (this.question.coords) {
+                this.stylesCoords = `translate(${this.question.coords.x}, ${this.question.coords.y})`;
+                console.log('coords', this.answers.coords.y);
+            }
 
         },
         computed: {
-            cursor() {
-
-                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`
+            cursor () {
+                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}, `;
             },
-
-
 
         },
         methods: {
-
             ...mapActions([
                 'getAnswerById',
-                'updateQuestion'
+                'updateQuestion',
+                'getAnswersOfQuestionById'
             ]),
 
-            async setAnswers () {
-                let answer = {};
-
-                if (typeof this.question.asnwers != 'undefined') {
-                    for (let answerId of this.question.asnwers) {
-                        answer = await this.getAnswerById(answerId);
-                        this.answers.push(answer.data[0]);
-                    }
-                }
-            },
-
-            editQuestion () {
+            editQuestion() {
                 this.$emit('click-edit-question');
             },
 
-            async selectQuestion (e) {
+            async selectQuestion(e) {
                 const coords = {
                     x: e.offsetX - this.square.x,
                     y: e.offsetY - this.square.y,
                 };
-
 
 
                 try {
@@ -145,12 +136,12 @@
                 }
             },
 
-            addAnswer () {
+            addAnswer() {
                 this.$emit('click-question');
                 this.$emit('is-add-answer');
             },
 
-            selectAnswer (id) {
+            selectAnswer(id) {
                 this.$emit('click-answer', id);
             },
 
@@ -173,8 +164,6 @@
 </script>
 
 <style lang="scss" scoped>
-
-
     .question {
         border: 1px solid black;
         display: inline-block;
@@ -190,9 +179,7 @@
     }
 
 
-
     .handle {
         fill: dodgerblue;
     }
-
 </style>

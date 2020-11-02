@@ -122,6 +122,24 @@ export default new Vuex.Store({
                 return error;
             }
         },
+        async getAnswersOfQuestionById (context, id) {
+            try {
+                let answer = {};
+                let answers = [];
+
+                let question = await axios.get('http://localhost:3000/questions/?id=' + id);
+
+                for (let answerId of question.data[0].answers) {
+                    answer = await axios.get('http://localhost:3000/answers/?id=' + answerId);
+                    answers.push(answer.data[0]);
+                }
+
+                return answers;
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
+        },
         async getScriptById (context, id) {
             return axios.get('http://localhost:3000/scripts/?id=' + id);
         },
