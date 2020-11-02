@@ -11,11 +11,11 @@
                     :d="pathCoords"
                     fill="transparent"
                     stroke="black"
-                    stroke-width="20"></path>
+                    stroke-width="5"></path>
 
-            <circle cx="100" cy="80" r="20" fill="aqua"></circle>
             <rect
                     class="question"
+                    v-bind:id="question.id"
                     :class="{ selected: question.id == currentQuestion }"
                     width="200"
                     height="80"
@@ -23,7 +23,8 @@
                     :style="cursor"
                     @mousedown="drag"
                     @mouseup="drop"
-            />
+            ></rect>
+
             <text
                     fill="white" y="45" x="30"
                     @click="selectQuestion"
@@ -39,6 +40,7 @@
                     class="question"
                     @click="editQuestion"
             ></rect>
+
             <text fill="white" y="45" x="225">Edit</text>
 
             <rect
@@ -84,18 +86,19 @@
         components: {
             Answer
         },
+
         async mounted() {
             this.answers = await this.getAnswersOfQuestionById(this.question.id);
 
             for (let answer of this.answers) {
-                console.log('answer.coords.x', answer.coords.x);
-                console.log('answer.coords.y', answer.coords.y);
+                // console.log('answer.coords.x', answer.coords.x);
+                // console.log('answer.coords.y', answer.coords.y);
                 this.pathCoords = `M 0 0 L${answer.coords.x - this.question.coords.x} ${answer.coords.y - this.question.coords.y}`;
             }
 
             if (this.question.coords) {
                 this.stylesCoords = `translate(${this.question.coords.x}, ${this.question.coords.y})`;
-                console.log('coords', this.answers.coords.y);
+                // console.log('coords', this.answers.coords.y);
             }
 
         },
@@ -111,7 +114,6 @@
                 'updateQuestion',
                 'getAnswersOfQuestionById'
             ]),
-
             editQuestion() {
                 this.$emit('click-edit-question');
             },
@@ -136,6 +138,7 @@
                 }
             },
 
+
             addAnswer() {
                 this.$emit('click-question');
                 this.$emit('is-add-answer');
@@ -157,8 +160,16 @@
             },
 
             move({offsetX, offsetY}) {
-                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`
+                console.log('test')
+
+                for (let answer of this.answers) {
+                    this.pathCoords = `M 0 0 L${answer.coords.x - offsetX + 50} ${answer.coords.y - offsetY + 50}`;
+                }
+
+                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.y})`
             },
+
+
         }
     }
 </script>

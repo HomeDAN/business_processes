@@ -5,8 +5,9 @@
         :transform="stylesCoords"
         v-bind:id="answer.id"
         ref="box"
+        @mousedown="drag"
+        @mouseup="drop"
     >
-        <circle cx="100" cy="0" r="20" fill="aqua"></circle>
         <rect
             class="answer"
             @click="selectAnswer"
@@ -14,8 +15,6 @@
             height="80"
             fill="orange"
             :style="cursor"
-            @mousedown="drag"
-            @mouseup="drop"
         ></rect>
 
         <text x="20" y="20" fill="white">{{ answer.name }}</text>
@@ -42,6 +41,7 @@
         data: () => ({
             currentAnswer: 0,
             stylesCoords: '',
+            pathCoords: '',
             square: {
                 x: 50,
                 y: 50,
@@ -60,6 +60,7 @@
             cursor() {
                 return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`
             },
+
         },
         methods: {
             ...mapActions([
@@ -97,6 +98,11 @@
                 this.$refs.box.removeEventListener('mousemove', this.move)
             },
             move({offsetX, offsetY}) {
+                console.log('test')
+
+                this.pathCoords = `M 0 0 L${this.answer.coords.x - offsetX + 50} ${this.answer.coords.y - offsetY + 50}`;
+
+
                 this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`
             },
         }
