@@ -8,6 +8,7 @@
         @mousedown="drag"
         @mouseup="drop"
     >
+
         <rect
             class="answer"
             @click="selectAnswer"
@@ -51,6 +52,8 @@
         }),
 
         mounted () {
+
+
             if (this.answer.coords) {
                 this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`
             }
@@ -98,9 +101,8 @@
                 this.$refs.box.removeEventListener('mousemove', this.move)
             },
             move({offsetX, offsetY}) {
-                console.log('test')
 
-                this.pathCoords = `M 0 0 L${this.answer.coords.x - offsetX + 50} ${this.answer.coords.y - offsetY + 50}`;
+                this.$parent.pathCoords = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX} ${offsetY} `
 
 
                 this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`
