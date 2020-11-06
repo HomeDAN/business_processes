@@ -4,19 +4,28 @@
       "name": "тест",
       "questions": [
         4,
-        9
+        9,
+        10
       ],
       "id": 2
+    },
+    {
+      "name": "lala",
+      "questions": [
+        11,
+        12
+      ],
+      "id": 3
     }
   ],
   "questions": [
     {
       "name": "фывафыв",
-      "text": "<p>sdfasdfasdf<br>\nasdfasdf<br>\nasdfasdfasdf</p>\n",
+      "text": "<p>sdfasdfasdf<br>\nasdfasdf<br>\nasdfasdfasdasdff<br>\nasdfasdf<br>\nasdfasdf</p>\n",
       "id": 4,
       "coords": {
-        "x": 362,
-        "y": 29
+        "x": 556,
+        "y": 4
       },
       "answers": [
         11,
@@ -32,8 +41,40 @@
       ],
       "id": 9,
       "coords": {
-        "x": 363,
-        "y": 338
+        "x": 621,
+        "y": 328
+      }
+    },
+    {
+      "name": "тест",
+      "text": "<p>asdfasdf</p>\n",
+      "answers": [],
+      "id": 10,
+      "coords": {
+        "x": 566,
+        "y": 645
+      }
+    },
+    {
+      "name": "Привет",
+      "text": "",
+      "answers": [
+        21
+      ],
+      "id": 11,
+      "coords": {
+        "x": 364,
+        "y": 52
+      }
+    },
+    {
+      "name": "тест",
+      "text": "",
+      "answers": [],
+      "id": 12,
+      "coords": {
+        "x": 246,
+        "y": 629
       }
     }
   ],
@@ -44,18 +85,19 @@
       "id": 11,
       "bind_to": "9",
       "coords": {
-        "x": 694,
-        "y": 190
-      }
+        "x": 141,
+        "y": 173
+      },
+      "status": "2"
     },
     {
       "name": "Привет",
-      "status": "2",
-      "text": "<p>asdfasdfasdf<br>\nasdfasdfasdf</p>\n",
+      "status": "P07_Dps",
+      "text": "<p>asdfasdfasdf<br>\nasdfasdfasdf<br>\nasdfasdfasdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 16,
       "coords": {
-        "x": 132,
-        "y": 196
+        "x": 1038,
+        "y": 128
       },
       "bind_to": "9"
     },
@@ -65,9 +107,10 @@
       "text": "<p>asdfasdf<br>\nasdfasdf</p>\n",
       "id": 17,
       "coords": {
-        "x": 114,
-        "y": 560
-      }
+        "x": 1061,
+        "y": 491
+      },
+      "bind_to": "10"
     },
     {
       "name": "test",
@@ -75,9 +118,40 @@
       "text": "<p>asdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 18,
       "coords": {
-        "x": 659,
-        "y": 585
+        "x": 141,
+        "y": 508
+      },
+      "bind_to": "10"
+    },
+    {
+      "name": "тест",
+      "status": "2",
+      "text": "",
+      "id": 19,
+      "coords": {
+        "x": 580,
+        "y": 417
       }
+    },
+    {
+      "name": "тест",
+      "text": "",
+      "id": 20,
+      "coords": {
+        "x": 598,
+        "y": 476
+      }
+    },
+    {
+      "name": "тест",
+      "status": "2",
+      "text": "<p>ыффывафыва</p>\n",
+      "id": 21,
+      "coords": {
+        "x": 415,
+        "y": 231
+      },
+      "bind_to": "12"
     }
   ],
   "answer_statuses": [

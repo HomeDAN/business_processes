@@ -11,7 +11,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div v-if="editIsDone">
+                                Вопрос успешно отредактирован
+                            </div>
+
                             <form
+                                v-if="!editIsDone"
                                 id="edit_answer_form"
                                 @submit.prevent="submitAnswer"
                             >
@@ -113,6 +118,7 @@
             text: '',
             name: '',
             bindTo: 0,
+            editIsDone: false,
             editorOptions: editorOptions
         }),
         components: {
@@ -141,7 +147,7 @@
                 let updatedAnswer = await this.updateAnswer({id: this.current, data: objFormData});
 
                 if (updatedAnswer.status == 200) {
-                    document.getElementById('edit_answer_form').reset();
+                    this.editIsDone = true;
                 }
             },
             async setAnswerData () {

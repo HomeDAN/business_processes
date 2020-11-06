@@ -25,7 +25,7 @@
                 :class="{ selected: question.id == currentQuestion }"
                 width="200"
                 height="80"
-                fill="green"
+                fill="gray"
             />
 
             <text
@@ -46,11 +46,20 @@
 
             <rect
                 y="0" x="280"
-                style="fill: brown"
+                style="fill: greenyellow"
                 width="80"
                 height="80"
                 class="question"
                 @click="addAnswer"
+            />
+
+            <rect
+                y="0" x="360"
+                style="fill: red"
+                width="80"
+                height="80"
+                class="question"
+                @click="deleteQ"
             />
         </g>
 
@@ -66,7 +75,7 @@
 
 <script>
     import Answer from '@/components/EditScript/answer/index.vue';
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: "question",
@@ -108,6 +117,9 @@
             }
         },
         computed: {
+            ...mapGetters([
+                'currentScriptId'
+            ]),
             cursor () {
                 return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}, `;
             }
@@ -117,7 +129,8 @@
                 'getQuestionById',
                 'getAnswerById',
                 'updateQuestion',
-                'getAnswersOfQuestionById'
+                'getAnswersOfQuestionById',
+                'deleteQuestion'
             ]),
             editQuestion () {
                 this.$emit('click-edit-question');
@@ -140,6 +153,16 @@
                     this.question = updatedQuestion.data;
                 } catch (e) {
                     console.error(e);
+                }
+            },
+            deleteQ () {
+                let answer = confirm('Все связанные сущности будут удалены. Продолжить?');
+
+                if (answer) {
+                    this.deleteQuestion({
+                        questionId: this.question.id,
+                        scriptId: this.currentScriptId
+                    });
                 }
             },
             addAnswer () {

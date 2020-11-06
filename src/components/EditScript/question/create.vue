@@ -11,7 +11,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div v-if="createIsDone">
+                                Ответ успешно создан
+                            </div>
+
                             <form
+                                v-if="!createIsDone"
                                 id="create_question_form"
                                 @submit.prevent="submitQuestion"
                             >
@@ -60,6 +65,7 @@
         data: () => ({
             text: '',
             name: '',
+            createIsDone: false,
             editorOptions: editorOptions
         }),
         components: {
@@ -99,7 +105,7 @@
                 let updateScriptRes = await this.updateScript({id: this.currentScriptId, data: {questions: questions}});
 
                 if (updateScriptRes.status == 200) {
-                    document.getElementById('create_question_form').reset();
+                    this.createIsDone = true;
                 }
             }
         }

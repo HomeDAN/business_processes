@@ -11,7 +11,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div v-if="createIsDone">
+                                Ответ успешно создан
+                            </div>
+
                             <form
+                                v-if="!createIsDone"
                                 id="create_answer_form"
                                 @submit.prevent="submitAnswer"
                             >
@@ -105,6 +110,7 @@
             text: '',
             name: '',
             bindTo: 0,
+            createIsDone: false,
             editorOptions: editorOptions
         }),
         components: {
@@ -145,7 +151,7 @@
                 let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {answers: answers}});
 
                 if (updateQuestion.status == 200) {
-                    document.getElementById('create_answer_form').reset();
+                    this.createIsDone = true;
                 }
             }
         }

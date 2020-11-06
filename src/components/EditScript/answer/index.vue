@@ -8,6 +8,13 @@
         @mouseup="drop"
         @click="selectAnswer"
     >
+        <path
+            :d="pathCoords"
+            fill="transparent"
+            stroke="black"
+            stroke-width="5"
+        />
+
         <rect
             class="answer"
             width="200"
@@ -55,6 +62,17 @@
             this.answer = await this.getAnswerById(this.answerId);
             this.answer = this.answer.data[0];
 
+            let question = {};
+
+            if (this.answer.bind_to) {
+                question = await this.getQuestionById(this.answer.bind_to);
+                question = question.data[0];
+            }
+
+            if (question.coords) {
+                this.pathCoords = `M ${this.answer.coords.x} ${this.answer.coords.y} L ${question.coords.x} ${question.coords.y}`;
+            }
+
             if (this.answer.coords) {
                 this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`;
             }
@@ -62,7 +80,8 @@
         methods: {
             ...mapActions([
                 'updateAnswer',
-                'getAnswerById'
+                'getAnswerById',
+                'getQuestionById'
             ]),
             async selectAnswer (e) {
                 try {
