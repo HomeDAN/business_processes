@@ -1,23 +1,45 @@
 <template>
-    <div class="">
-        <div
-            v-drag="{}"
-            class="answer_drag"
-            :style="stylesCoords"
-        >
-            <div
-                class="answer"
-                @click="selectAnswer"
-            >
-                {{ answer.name }}
-            </div>
+    <g
+        class="answer_drag"
+        :transform="stylesCoords"
+        :id="answer.id"
+        ref="box"
+        @mousedown="drag"
+        @mouseup="drop"
+        @click="selectAnswer"
+    >
+        <rect
+            class="answer"
+            width="200"
+            height="80"
+            fill="orange"
+            :style="cursor"
+        />
 
-            <div
-                class="answer"
-                @click="editAnswer"
-            >edit</div>
-        </div>
-    </div>
+        <text
+            x="20" y="20"
+            fill="white"
+        >
+            {{ answer.name }}
+        </text>
+
+        <rect
+            width="80"
+            height="80"
+            fill="grey"
+            x="200"
+            class="answer"
+            @click="editAnswer"
+        />
+
+        <text
+            x="225" y="45"
+            fill="white"
+        >
+            edit
+        </text>
+    </g>
+
 </template>
 
 <script>
@@ -25,39 +47,73 @@
 
     export default {
         name: "answer",
-        props: ['answer', 'currentQuestion'],
+        props: ['answerId', 'currentQuestion'],
         data: () => ({
             currentAnswer: 0,
-            stylesCoords: ''
+            answer: {},
+            stylesCoords: '',
+            pathCoords: '',
+            square: {
+                x: 50,
+                y: 50,
+            },
+            dragOffsetX: null,
+            dragOffsetY: null
         }),
-        mounted () {
+        async mounted () {
+            this.answer = await this.getAnswerById(this.answerId);
+            this.answer = this.answer.data[0];
+
             if (this.answer.coords) {
-                this.stylesCoords = 'transform: none; left: ' + this.answer.coords.x + 'px; top: ' + this.answer.coords.y + 'px;';
+                this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`;
+            }
+        },
+        computed: {
+            cursor () {
+                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`;
             }
         },
         methods: {
             ...mapActions([
-                'updateAnswer'
+                'updateAnswer',
+                'getAnswerById'
             ]),
             async selectAnswer (e) {
-                const coords = {
-                    x: parseInt(e.target.parentNode.style.left, 10),
-                    y: parseInt(e.target.parentNode.style.top, 10),
-                };
-
                 try {
-                    await this.updateAnswer({
+                    let updatedAnswer = await this.updateAnswer({
                         id: this.answer.id,
                         data: {
-                            coords: coords
+                            coords: {
+                                x: e.offsetX - this.square.x,
+                                y: e.offsetY - this.square.y,
+                            }
                         }
                     });
+
+                    this.answer = updatedAnswer.data;
+
+                    this.$emit('answer-change');
                 } catch (e) {
                     console.error(e);
                 }
             },
             editAnswer () {
                 this.$emit('click-edit-answer', this.answer.id);
+            },
+            drag ({offsetX, offsetY}) {
+                this.dragOffsetX = offsetX - this.square.x;
+                this.dragOffsetY = offsetY - this.square.y;
+
+                this.$refs.box.addEventListener('mousemove', this.move);
+            },
+            drop () {
+                this.dragOffsetX = this.dragOffsetY = null;
+
+                this.$refs.box.removeEventListener('mousemove', this.move);
+            },
+            move ({offsetX, offsetY}) {
+                this.$parent.pathCoords = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX} ${offsetY}`;
+                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`;
             }
         }
     }
@@ -67,6 +123,7 @@
     .answer_drag {
         display: inline-block;
     }
+
     .answer {
         border: 1px solid black;
         display: inline-block;

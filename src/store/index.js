@@ -11,9 +11,11 @@ export default new Vuex.Store({
         questions: [],
         questionsInCurrentScript: [],
         answerStatuses: [],
-        answers: []
+        answers: [],
+        lookingPool: 0
     },
     getters: {
+        isUiLocked: state => state.lookingPool > 0,
         scriptsList (state) {
             return state.scripts;
         },
@@ -54,7 +56,9 @@ export default new Vuex.Store({
         },
         setQuestionsInCurrentScriptInState (state, questions) {
             state.questionsInCurrentScript = questions;
-        }
+        },
+        lockUi: state => state.lookingPool++,
+        unlockUi: state => state.lookingPool--
     },
     actions: {
         /* creators */
@@ -117,6 +121,24 @@ export default new Vuex.Store({
             try {
                 const answers = await axios.get('http://localhost:3000/answers');
                 context.commit('setAnswersList', answers.data);
+            } catch (error) {
+                console.error(error);
+                return error;
+            }
+        },
+        async getAnswersOfQuestionById (context, id) {
+            try {
+                let answer = {};
+                let answers = [];
+
+                let question = await axios.get('http://localhost:3000/questions/?id=' + id);
+
+                for (let answerId of question.data[0].answers) {
+                    answer = await axios.get('http://localhost:3000/answers/?id=' + answerId);
+                    answers.push(answer.data[0]);
+                }
+
+                return answers;
             } catch (error) {
                 console.error(error);
                 return error;

@@ -1,36 +1,77 @@
 <template>
-    <div class="question_with_answer">
-        <div
-            v-drag="{}"
-            class="question_drag"
-            :style="stylesCoords"
+    <g class="q_a_wrapper">
+        <path
+            :d="pathCoords"
+            fill="transparent"
+            stroke="black"
+            stroke-width="5"
+        />
+
+        <g
+            class="question_with_answer"
+            :id="question.id"
+            :transform="stylesCoords"
+            ref="box"
+            :style="cursor"
+            @mousedown="drag"
+            @mouseup="drop"
+            @click="selectQuestion"
         >
-            <div
+            <rect
                 class="question"
-                @click="selectQuestion"
-                v-bind:id="question.id"
+                :id="question.id"
+                :class="{ selected: question.id == currentQuestion }"
+                width="200"
+                height="80"
+                fill="green"
+            />
+
+            <text
+                fill="white"
+                y="45" x="30"
             >
                 {{ question.name }} (ID: {{ question.id }})
-            </div>
+            </text>
 
-            <div
+            <rect
+                y="0" x="200"
+                style="fill: blue"
+                width="80"
+                height="80"
                 class="question"
                 @click="editQuestion"
-            >edit</div>
+            />
 
-            <div
+            <text
+                y="45" x="225"
+                fill="white"
+            >
+                Edit
+            </text>
+
+            <rect
+                y="0" x="280"
+                style="fill: brown"
+                width="80"
+                height="80"
                 class="question"
                 @click="addAnswer"
-            >add</div>
-        </div>
+            />
+
+            <text
+                y="45" x="305"
+                fill="white"
+            >Add</text>
+        </g>
 
         <answer
             v-for="answer in answers"
-            :answer="answer"
+            :answerId="answer.id"
             :key="answer.id"
             @click-edit-answer="selectAnswer(answer.id)"
+            @answer-change="changeAnswers"
         />
-    </div>
+    </g>
 </template>
 
 <script>
@@ -39,54 +80,71 @@
 
     export default {
         name: "question",
-        props: ['question', 'currentQuestion'],
+        props: ['currentQuestion', 'questionId'],
         data: () => ({
             stylesCoords: '',
+            pathCoords: '',
             answers: [],
+            question: {},
             editAnswer: false,
-            currentAnswer: 0
+            currentAnswer: 0,
+            square: {
+                x: 50,
+                y: 50,
+            },
+            dragOffsetX: null,
+            dragOffsetY: null,
+            x: null,
+            y: null
         }),
         components: {
             Answer
         },
         async mounted () {
-            this.setAnswers();
+            this.question = await this.getQuestionById(this.questionId);
+            this.question = this.question.data[0];
+
+            this.answers = await this.getAnswersOfQuestionById(this.questionId);
+
+            for (let answer of this.answers) {
+                this.pathCoords = `M ${this.question.coords.x} ${this.question.coords.y} L ${answer.coords.x} ${answer.coords.y}`;
+            }
 
             if (this.question.coords) {
-                this.stylesCoords = 'left: ' + this.question.coords.x + 'px; top: ' + this.question.coords.y + 'px;';
+                this.stylesCoords = `translate(${this.question.coords.x}, ${this.question.coords.y})`;
+            }
+        },
+        computed: {
+            cursor () {
+                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}, `;
             }
         },
         methods: {
             ...mapActions([
+                'getQuestionById',
                 'getAnswerById',
-                'updateQuestion'
+                'updateQuestion',
+                'getAnswersOfQuestionById'
             ]),
-            async setAnswers () {
-                let answer = {};
-
-                if (typeof this.question.asnwers != 'undefined') {
-                    for (let answerId of this.question.asnwers) {
-                        answer = await this.getAnswerById(answerId);
-                        this.answers.push(answer.data[0]);
-                    }
-                }
-            },
             editQuestion () {
                 this.$emit('click-edit-question');
             },
+            async changeAnswers () {
+                this.answers = await this.getAnswersOfQuestionById(this.questionId);
+            },
             async selectQuestion (e) {
-                const coords = {
-                    x: parseInt(e.target.parentNode.style.left, 10),
-                    y: parseInt(e.target.parentNode.style.top, 10),
-                };
-
                 try {
-                    await this.updateQuestion({
+                    let updatedQuestion = await this.updateQuestion({
                         id: e.target.id,
                         data: {
-                            coords: coords
+                            coords: {
+                                x: e.offsetX - this.square.x,
+                                y: e.offsetY - this.square.y
+                            }
                         }
                     });
+
+                    this.question = updatedQuestion.data;
                 } catch (e) {
                     console.error(e);
                 }
@@ -97,12 +155,30 @@
             },
             selectAnswer (id) {
                 this.$emit('click-answer', id);
+            },
+            drag ({offsetX, offsetY}) {
+                this.dragOffsetX = offsetX - this.square.x;
+                this.dragOffsetY = offsetY - this.square.y;
+
+                this.$refs.box.addEventListener('mousemove', this.move);
+            },
+            drop () {
+                this.dragOffsetX = this.dragOffsetY = null;
+
+                this.$refs.box.removeEventListener('mousemove', this.move);
+            },
+            async move ({offsetX, offsetY}) {
+                for (let answer of this.answers) {
+                    this.pathCoords = `M ${offsetX} ${offsetY}  L ${answer.coords.x} ${answer.coords.y}`;
+                }
+
+                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.y})`;
             }
         }
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .question {
         border: 1px solid black;
         display: inline-block;
@@ -117,19 +193,7 @@
         display: inline-block;
     }
 
-    #svg {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-    }
-
     .handle {
         fill: dodgerblue;
-    }
-
-    .path {
-        fill: none;
-        stroke: dodgerblue;
-        stroke-width: 6;
     }
 </style>

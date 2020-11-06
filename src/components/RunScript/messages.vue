@@ -36,10 +36,12 @@
     .discussion {
         /*max-width: 900px;*/
         /*margin: 0 auto;*/
+
         display: flex;
         /*flex-flow: column wrap;*/
         flex-direction: column;
     }
+
     .discussion > .bubble {
         border-radius: 1em;
         padding: 0.25em 0.75em;
@@ -47,24 +49,29 @@
         max-width: 470px;
         min-width: 470px;
     }
+
     .discussion > .bubble.sender {
         align-self: flex-start;
         background-color: cornflowerblue;
         color: #fff;
     }
+
     .sender ol {
         text-align: left;
     }
+
     .discussion > .bubble.recipient {
         align-self: flex-end;
         background-color: #efefef;
     }
+
     .discussion > .bubble.sender.first { border-bottom-left-radius: 0.1em; }
     .discussion > .bubble.sender.last { border-top-left-radius: 0.1em; }
     .discussion > .bubble.sender.middle {
         border-bottom-left-radius: 0.1em;
         border-top-left-radius: 0.1em;
     }
+
     .discussion > .bubble.recipient.first { border-bottom-right-radius: 0.1em; }
     .discussion > .bubble.recipient.last { border-top-right-radius: 0.1em; }
     .discussion > .bubble.recipient.middle {

@@ -1,14 +1,29 @@
 <template>
-    <div class="edit-script">
+    <div class="edit-script__wrapper">
+        <div class="vld-parent">
+            <loading
+                :active.sync="isUiLocked"
+                :can-cancel="true"
+                :is-full-page="fullPage"
+            />
+        </div>
+
         <button
             @click="updateCreatingUpdatingState('creatingQuestion')"
         >
             Создать вопрос
         </button>
 
+        <svg
+            id="svg"
+            class="edit-script"
+            width="100%"
+            height="100%"
+        >
+
         <question
             v-for="question in questionsInCurrentScript"
-            :question="question"
+            :questionId="question.id"
             :key="question.id"
             :currentQuestion="currentQuestion"
             @click-edit-question="selectQuestion(question.id)"
@@ -39,17 +54,22 @@
             :current="currentAnswer"
             @close-modal="closeAllModal"
         />
+    </svg>
     </div>
 </template>
 
 <script>
     import {mapActions, mapGetters} from 'vuex';
+
     import Question from '@/components/EditScript/question/index.vue';
     import createQuestion from '@/components/EditScript/question/create.vue';
     import EditQuestion from '@/components/EditScript/question/edit.vue';
     import createAnswer from '@/components/EditScript/answer/create.vue';
     import editAnswer from '@/components/EditScript/answer/edit.vue';
 
+    import Loading from 'vue-loading-overlay';
+
+    import 'vue-loading-overlay/dist/vue-loading.css';
     import 'tui-editor/dist/tui-editor.css'
     import 'tui-editor/dist/tui-editor-contents.css'
     import 'codemirror/lib/codemirror.css'
@@ -61,7 +81,8 @@
             EditQuestion,
             createAnswer,
             editAnswer,
-            createQuestion
+            createQuestion,
+            Loading
         },
         data: () => ({
             currentQuestion: 0,
@@ -71,12 +92,15 @@
                 creatingQuestion: false,
                 editingQuestion: false,
                 editingAnswer: false
-            }
+            },
+            isSaved: false,
+            fullPage: true
         }),
         computed: {
             ...mapGetters([
                 'currentScriptId',
-                'questionsInCurrentScript'
+                'questionsInCurrentScript',
+                'isUiLocked'
             ])
         },
         mounted () {
@@ -84,8 +108,10 @@
             this.$store.dispatch('setQuestionsInCurrentScript');
         },
         watch: {
-            questionsInCurrentScript () {
-                this.$store.dispatch('setQuestionsInCurrentScript');
+            questionsInCurrentScript (val) {
+                if (val !== this.questionsInCurrentScript) {
+                    this.$store.dispatch('setQuestionsInCurrentScript');
+                }
             }
         },
         methods: {
@@ -124,3 +150,19 @@
         }
     }
 </script>
+
+<style>
+    .box {
+        margin: auto;
+        position: center;
+        display: block;
+    }
+
+    .edit-script {
+        position: fixed;
+        top: 150px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
