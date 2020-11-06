@@ -29,7 +29,7 @@
             let question = await this.getQuestionById(this.currentQuestion);
             let answer = {};
 
-            for (let answerId of question.data[0].asnwers) {
+            for (let answerId of question.data[0].answers) {
                 answer = await this.getAnswerById(answerId);
 
                 this.answers.push(answer.data[0]);

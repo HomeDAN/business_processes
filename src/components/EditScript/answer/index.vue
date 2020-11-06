@@ -98,7 +98,12 @@
                 this.$refs.box.removeEventListener('mousemove', this.move);
             },
             move ({offsetX, offsetY}) {
-                this.$parent.pathCoords = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX} ${offsetY}`;
+                for (let key in this.$parent.pathsCoords) {
+                    if (this.answerId == this.$parent.pathsCoords[key].id) {
+                        this.$parent.pathsCoords[key].value = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX} ${offsetY}`;
+                    }
+                }
+
                 this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`;
             }
         }

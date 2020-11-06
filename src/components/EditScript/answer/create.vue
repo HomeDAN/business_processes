@@ -116,6 +116,9 @@
                 'questionsInCurrentScript'
             ])
         },
+        mounted () {
+            this.$store.dispatch('getAnswerStatuses');
+        },
         methods: {
             ...mapActions([
                 'getAnswerStatuses',
@@ -136,24 +139,15 @@
                 let createdAnswer = await this.createAnswer(objFormData);
                 let updatedQuestion = await this.getQuestionById(this.currentQuestion);
 
-                let asnwers = [];
+                let answers = updatedQuestion.data[0].answers;
 
-                if (typeof updatedQuestion.data[0].asnwers === 'undefined') {
-                    asnwers = [];
-                } else {
-                    asnwers = updatedQuestion.data[0].asnwers;
-                }
-
-                asnwers.push(createdAnswer.data.id);
-                let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {asnwers: asnwers}});
+                answers.push(createdAnswer.data.id);
+                let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {answers: answers}});
 
                 if (updateQuestion.status == 200) {
                     document.getElementById('create_answer_form').reset();
                 }
             }
-        },
-        mounted () {
-            this.$store.dispatch('getAnswerStatuses');
         }
     }
 </script>

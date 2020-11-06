@@ -1,7 +1,9 @@
 <template>
     <g class="q_a_wrapper">
         <path
-            :d="pathCoords"
+            v-for="(pathCoords, key) in pathsCoords"
+            :key="key"
+            :d="pathCoords.value"
             fill="transparent"
             stroke="black"
             stroke-width="5"
@@ -71,7 +73,7 @@
         props: ['currentQuestion', 'questionId'],
         data: () => ({
             stylesCoords: '',
-            pathCoords: '',
+            pathsCoords: [],
             answers: [],
             question: {},
             editAnswer: false,
@@ -95,7 +97,10 @@
             this.answers = await this.getAnswersOfQuestionById(this.questionId);
 
             for (let answer of this.answers) {
-                this.pathCoords = `M ${this.question.coords.x} ${this.question.coords.y} L ${answer.coords.x} ${answer.coords.y}`;
+                this.pathsCoords.push({
+                    id: answer.id,
+                    value: `M ${this.question.coords.x} ${this.question.coords.y} L ${answer.coords.x} ${answer.coords.y}`
+                });
             }
 
             if (this.question.coords) {
@@ -155,9 +160,13 @@
 
                 this.$refs.box.removeEventListener('mousemove', this.move);
             },
-            async move ({offsetX, offsetY}) {
+            move ({offsetX, offsetY}) {
                 for (let answer of this.answers) {
-                    this.pathCoords = `M ${offsetX} ${offsetY}  L ${answer.coords.x} ${answer.coords.y}`;
+                    for (let pathKey in this.pathsCoords) {
+                        if (this.pathsCoords[pathKey].id == answer.id) {
+                            this.pathsCoords[pathKey].value = `M ${offsetX} ${offsetY} L ${answer.coords.x} ${answer.coords.y}`;
+                        }
+                    }
                 }
 
                 this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.y})`;

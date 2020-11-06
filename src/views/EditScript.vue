@@ -24,27 +24,27 @@
         </svg>
 
         <create-question
-                v-if="CreatingUpdatingState.creatingQuestion"
-                @close-modal="closeAllModal"
+            v-if="CreatingUpdatingState.creatingQuestion"
+            @close-modal="closeAllModal"
         />
 
         <edit-question
-                v-if="CreatingUpdatingState.editingQuestion"
-                :current="currentQuestion"
-                @close-modal="closeAllModal"
+            v-if="CreatingUpdatingState.editingQuestion"
+            :current="currentQuestion"
+            @close-modal="closeAllModal"
         />
 
         <create-answer
-                v-if="CreatingUpdatingState.creatingAnswer"
-                :currentQuestion="currentQuestion"
-                @close-modal="closeAllModal"
+            v-if="CreatingUpdatingState.creatingAnswer"
+            :currentQuestion="currentQuestion"
+            @close-modal="closeAllModal"
         />
 
         <edit-answer
-                v-if="CreatingUpdatingState.editingAnswer"
-                :currentQuestion="currentQuestion"
-                :current="currentAnswer"
-                @close-modal="closeAllModal"
+            v-if="CreatingUpdatingState.editingAnswer"
+            :currentQuestion="currentQuestion"
+            :current="currentAnswer"
+            @close-modal="closeAllModal"
         />
     </div>
 </template>
