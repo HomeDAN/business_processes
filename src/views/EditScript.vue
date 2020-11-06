@@ -1,13 +1,5 @@
 <template>
     <div class="edit-script__wrapper">
-        <div class="vld-parent">
-            <loading
-                :active.sync="isUiLocked"
-                :can-cancel="true"
-                :is-full-page="fullPage"
-            />
-        </div>
-
         <button
             @click="updateCreatingUpdatingState('creatingQuestion')"
         >
@@ -20,41 +12,40 @@
             width="100%"
             height="100%"
         >
-
-        <question
-            v-for="question in questionsInCurrentScript"
-            :questionId="question.id"
-            :key="question.id"
-            :currentQuestion="currentQuestion"
-            @click-edit-question="selectQuestion(question.id)"
-            @click-answer="selectAnswer"
-            @is-add-answer="selectCreateQuestion(question.id)"
-        />
+            <question
+                v-for="question in questionsInCurrentScript"
+                :questionId="question.id"
+                :key="question.id"
+                :currentQuestion="currentQuestion"
+                @click-edit-question="selectQuestion(question.id)"
+                @click-answer="selectAnswer"
+                @is-add-answer="selectCreateQuestion(question.id)"
+            />
+        </svg>
 
         <create-question
-            v-if="CreatingUpdatingState.creatingQuestion"
-            @close-modal="closeAllModal"
+                v-if="CreatingUpdatingState.creatingQuestion"
+                @close-modal="closeAllModal"
         />
 
         <edit-question
-            v-if="CreatingUpdatingState.editingQuestion"
-            :current="currentQuestion"
-            @close-modal="closeAllModal"
+                v-if="CreatingUpdatingState.editingQuestion"
+                :current="currentQuestion"
+                @close-modal="closeAllModal"
         />
 
         <create-answer
-            v-if="CreatingUpdatingState.creatingAnswer"
-            :currentQuestion="currentQuestion"
-            @close-modal="closeAllModal"
+                v-if="CreatingUpdatingState.creatingAnswer"
+                :currentQuestion="currentQuestion"
+                @close-modal="closeAllModal"
         />
 
         <edit-answer
-            v-if="CreatingUpdatingState.editingAnswer"
-            :currentQuestion="currentQuestion"
-            :current="currentAnswer"
-            @close-modal="closeAllModal"
+                v-if="CreatingUpdatingState.editingAnswer"
+                :currentQuestion="currentQuestion"
+                :current="currentAnswer"
+                @close-modal="closeAllModal"
         />
-    </svg>
     </div>
 </template>
 
@@ -66,8 +57,6 @@
     import EditQuestion from '@/components/EditScript/question/edit.vue';
     import createAnswer from '@/components/EditScript/answer/create.vue';
     import editAnswer from '@/components/EditScript/answer/edit.vue';
-
-    import Loading from 'vue-loading-overlay';
 
     import 'vue-loading-overlay/dist/vue-loading.css';
     import 'tui-editor/dist/tui-editor.css'
@@ -81,8 +70,7 @@
             EditQuestion,
             createAnswer,
             editAnswer,
-            createQuestion,
-            Loading
+            createQuestion
         },
         data: () => ({
             currentQuestion: 0,

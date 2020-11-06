@@ -42,13 +42,6 @@
                 @click="editQuestion"
             />
 
-            <text
-                y="45" x="225"
-                fill="white"
-            >
-                Edit
-            </text>
-
             <rect
                 y="0" x="280"
                 style="fill: brown"
@@ -57,11 +50,6 @@
                 class="question"
                 @click="addAnswer"
             />
-
-            <text
-                y="45" x="305"
-                fill="white"
-            >Add</text>
         </g>
 
         <answer

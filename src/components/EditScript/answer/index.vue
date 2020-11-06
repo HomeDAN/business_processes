@@ -13,7 +13,6 @@
             width="200"
             height="80"
             fill="orange"
-            :style="cursor"
         />
 
         <text
@@ -31,15 +30,7 @@
             class="answer"
             @click="editAnswer"
         />
-
-        <text
-            x="225" y="45"
-            fill="white"
-        >
-            edit
-        </text>
     </g>
-
 </template>
 
 <script>
@@ -66,11 +57,6 @@
 
             if (this.answer.coords) {
                 this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`;
-            }
-        },
-        computed: {
-            cursor () {
-                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`;
             }
         },
         methods: {
