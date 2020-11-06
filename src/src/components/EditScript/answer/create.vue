@@ -136,16 +136,16 @@
                 let createdAnswer = await this.createAnswer(objFormData);
                 let updatedQuestion = await this.getQuestionById(this.currentQuestion);
 
-                let answers = [];
+                let asnwers = [];
 
-                if (typeof updatedQuestion.data[0].answers === 'undefined') {
-                    answers = [];
+                if (typeof updatedQuestion.data[0].asnwers === 'undefined') {
+                    asnwers = [];
                 } else {
-                    answers = updatedQuestion.data[0].answers;
+                    asnwers = updatedQuestion.data[0].asnwers;
                 }
 
-                answers.push(createdAnswer.data.id);
-                let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {answers: answers}});
+                asnwers.push(createdAnswer.data.id);
+                let updateQuestion = await this.updateQuestion({id: this.currentQuestion, data: {asnwers: asnwers}});
 
                 if (updateQuestion.status == 200) {
                     document.getElementById('create_answer_form').reset();

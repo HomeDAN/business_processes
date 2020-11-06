@@ -1,24 +1,27 @@
 <template>
-
     <g
         class="answer_drag"
         :transform="stylesCoords"
-        v-bind:id="answer.id"
+        :id="answer.id"
         ref="box"
+        @mousedown="drag"
+        @mouseup="drop"
+        @click="selectAnswer"
     >
-        <circle cx="100" cy="0" r="20" fill="aqua"></circle>
         <rect
             class="answer"
-            @click="selectAnswer"
             width="200"
             height="80"
             fill="orange"
             :style="cursor"
-            @mousedown="drag"
-            @mouseup="drop"
-        ></rect>
+        />
 
-        <text x="20" y="20" fill="white">{{ answer.name }}</text>
+        <text
+            x="20" y="20"
+            fill="white"
+        >
+            {{ answer.name }}
+        </text>
 
         <rect
             width="80"
@@ -27,8 +30,14 @@
             x="200"
             class="answer"
             @click="editAnswer"
-        ></rect>
-        <text x="225" y="45" fill="white">edit</text>
+        />
+
+        <text
+            x="225" y="45"
+            fill="white"
+        >
+            edit
+        </text>
     </g>
 
 </template>
@@ -38,10 +47,12 @@
 
     export default {
         name: "answer",
-        props: ['answer', 'currentQuestion'],
+        props: ['answerId', 'currentQuestion'],
         data: () => ({
             currentAnswer: 0,
+            answer: {},
             stylesCoords: '',
+            pathCoords: '',
             square: {
                 x: 50,
                 y: 50,
@@ -49,35 +60,39 @@
             dragOffsetX: null,
             dragOffsetY: null
         }),
+        async mounted () {
+            this.answer = await this.getAnswerById(this.answerId);
+            this.answer = this.answer.data[0];
 
-        mounted () {
             if (this.answer.coords) {
-                this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`
+                this.stylesCoords =  `translate(${this.answer.coords.x}, ${this.answer.coords.y})`;
             }
-
         },
         computed: {
-            cursor() {
-                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`
-            },
+            cursor () {
+                return `cursor: ${this.dragOffsetX ? 'grabbing' : 'grab'}`;
+            }
         },
         methods: {
             ...mapActions([
-                'updateAnswer'
+                'updateAnswer',
+                'getAnswerById'
             ]),
             async selectAnswer (e) {
-                const coords = {
-                    x: e.offsetX - this.square.x,
-                    y: e.offsetY - this.square.y,
-                };
-
                 try {
-                    await this.updateAnswer({
+                    let updatedAnswer = await this.updateAnswer({
                         id: this.answer.id,
                         data: {
-                            coords: coords
+                            coords: {
+                                x: e.offsetX - this.square.x,
+                                y: e.offsetY - this.square.y,
+                            }
                         }
                     });
+
+                    this.answer = updatedAnswer.data;
+
+                    this.$emit('answer-change');
                 } catch (e) {
                     console.error(e);
                 }
@@ -85,29 +100,30 @@
             editAnswer () {
                 this.$emit('click-edit-answer', this.answer.id);
             },
-
-            drag({offsetX, offsetY}) {
+            drag ({offsetX, offsetY}) {
                 this.dragOffsetX = offsetX - this.square.x;
                 this.dragOffsetY = offsetY - this.square.y;
-                // this.stylesCoords = `translate(${offsetX}, ${offsetY})`
-                this.$refs.box.addEventListener('mousemove', this.move)
+
+                this.$refs.box.addEventListener('mousemove', this.move);
             },
-            drop() {
+            drop () {
                 this.dragOffsetX = this.dragOffsetY = null;
-                this.$refs.box.removeEventListener('mousemove', this.move)
+
+                this.$refs.box.removeEventListener('mousemove', this.move);
             },
-            move({offsetX, offsetY}) {
-                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`
-            },
+            move ({offsetX, offsetY}) {
+                this.$parent.pathCoords = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX} ${offsetY}`;
+                this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`;
+            }
         }
     }
 </script>
 
 <style lang="scss">
-
     .answer_drag {
         display: inline-block;
     }
+
     .answer {
         border: 1px solid black;
         display: inline-block;

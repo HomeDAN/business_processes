@@ -11,9 +11,11 @@ export default new Vuex.Store({
         questions: [],
         questionsInCurrentScript: [],
         answerStatuses: [],
-        answers: []
+        answers: [],
+        lookingPool: 0
     },
     getters: {
+        isUiLocked: state => state.lookingPool > 0,
         scriptsList (state) {
             return state.scripts;
         },
@@ -54,7 +56,9 @@ export default new Vuex.Store({
         },
         setQuestionsInCurrentScriptInState (state, questions) {
             state.questionsInCurrentScript = questions;
-        }
+        },
+        lockUi: state => state.lookingPool++,
+        unlockUi: state => state.lookingPool--
     },
     actions: {
         /* creators */
