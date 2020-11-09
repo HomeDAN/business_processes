@@ -25,8 +25,8 @@
       "text": "<p>sdfasdfasdf<br>\nasdfasdf<br>\nasdfasdfasdasdff<br>\nasdfasdf<br>\nasdfasdf</p>\n",
       "id": 4,
       "coords": {
-        "x": 473,
-        "y": 25
+        "x": 560,
+        "y": 23
       },
       "answers": [
         11,
@@ -42,8 +42,8 @@
       ],
       "id": 9,
       "coords": {
-        "x": 782,
-        "y": 234
+        "x": 579,
+        "y": 283
       }
     },
     {
@@ -64,8 +64,8 @@
       ],
       "id": 11,
       "coords": {
-        "x": 625,
-        "y": 327
+        "x": 435,
+        "y": 88
       }
     },
     {
@@ -74,8 +74,8 @@
       "answers": [],
       "id": 12,
       "coords": {
-        "x": 795,
-        "y": 189
+        "x": 725,
+        "y": 98
       }
     },
     {
@@ -87,8 +87,8 @@
       ],
       "id": 13,
       "coords": {
-        "x": 831,
-        "y": 471
+        "x": 927,
+        "y": 360
       }
     }
   ],
@@ -99,8 +99,8 @@
       "id": 11,
       "bind_to": "9",
       "coords": {
-        "x": 69,
-        "y": 216
+        "x": 339,
+        "y": 183
       },
       "status": "2"
     },
@@ -110,8 +110,8 @@
       "text": "<p>asdfasdfasdf<br>\nasdfasdfasdf<br>\nasdfasdfasdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 16,
       "coords": {
-        "x": 1221,
-        "y": 88
+        "x": 979,
+        "y": 79
       },
       "bind_to": "9"
     },
@@ -121,8 +121,8 @@
       "text": "<p>asdfasdf<br>\nasdfasdf</p>\n",
       "id": 17,
       "coords": {
-        "x": 1542,
-        "y": 399
+        "x": 1433,
+        "y": 413
       },
       "bind_to": "10"
     },
@@ -132,8 +132,8 @@
       "text": "<p>asdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 18,
       "coords": {
-        "x": 301,
-        "y": 589
+        "x": 412,
+        "y": 523
       },
       "bind_to": "10"
     },
@@ -162,8 +162,8 @@
       "text": "<p>ыффывафыва</p>\n",
       "id": 21,
       "coords": {
-        "x": 817,
-        "y": 609
+        "x": 412,
+        "y": 394
       },
       "bind_to": "12"
     },
@@ -173,8 +173,8 @@
       "text": "",
       "id": 22,
       "coords": {
-        "x": 1550,
-        "y": 208
+        "x": 1528,
+        "y": 68
       }
     },
     {
@@ -182,8 +182,8 @@
       "text": "",
       "id": 23,
       "coords": {
-        "x": 704,
-        "y": 480
+        "x": 668,
+        "y": 443
       }
     }
   ],
