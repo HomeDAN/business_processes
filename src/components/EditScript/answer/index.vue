@@ -11,7 +11,7 @@
         <path
             :d="pathCoords"
             fill="transparent"
-            stroke="black"
+            stroke="blue"
             stroke-width="5"
         />
 
@@ -49,6 +49,7 @@
         data: () => ({
             currentAnswer: 0,
             answer: {},
+            question: {},
             stylesCoords: '',
             pathCoords: '',
             square: {
@@ -62,15 +63,13 @@
             this.answer = await this.getAnswerById(this.answerId);
             this.answer = this.answer.data[0];
 
-            let question = {};
-
             if (this.answer.bind_to) {
-                question = await this.getQuestionById(this.answer.bind_to);
-                question = question.data[0];
+                this.question = await this.getQuestionById(this.answer.bind_to);
+                this.question = this.question.data[0];
             }
 
-            if (question.coords) {
-                this.pathCoords = `M ${this.answer.coords.x} ${this.answer.coords.y} L ${question.coords.x} ${question.coords.y}`;
+            if (this.question.coords) {
+                this.pathCoords = `M 0 0 L ${this.question.coords.x - this.answer.coords.x} ${this.question.coords.y - this.answer.coords.y}`;
             }
 
             if (this.answer.coords) {
@@ -119,8 +118,12 @@
             move ({offsetX, offsetY}) {
                 for (let key in this.$parent.pathsCoords) {
                     if (this.answerId == this.$parent.pathsCoords[key].id) {
-                        this.$parent.pathsCoords[key].value = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX} ${offsetY}`;
+                        this.$parent.pathsCoords[key].value = `M ${this.$parent.question.coords.x} ${this.$parent.question.coords.y} L ${offsetX - this.square.x} ${offsetY - this.square.y}`;
                     }
+                }
+
+                if (this.question.coords) {
+                    this.pathCoords = `M 0 0 L ${this.question.coords.x - offsetX + this.square.x} ${this.question.coords.y - offsetY + this.square.y}`;
                 }
 
                 this.stylesCoords = `translate(${offsetX - this.square.x}, ${offsetY - this.square.x})`;
@@ -138,6 +141,7 @@
         border: 1px solid black;
         display: inline-block;
         padding: 10px;
+
         &.selected {
             background-color: aqua;
         }

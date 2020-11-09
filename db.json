@@ -24,8 +24,8 @@
       "text": "<p>sdfasdfasdf<br>\nasdfasdf<br>\nasdfasdfasdasdff<br>\nasdfasdf<br>\nasdfasdf</p>\n",
       "id": 4,
       "coords": {
-        "x": 556,
-        "y": 4
+        "x": 473,
+        "y": 25
       },
       "answers": [
         11,
@@ -41,8 +41,8 @@
       ],
       "id": 9,
       "coords": {
-        "x": 621,
-        "y": 328
+        "x": 556,
+        "y": 345
       }
     },
     {
@@ -51,8 +51,8 @@
       "answers": [],
       "id": 10,
       "coords": {
-        "x": 566,
-        "y": 645
+        "x": 481,
+        "y": 612
       }
     },
     {
@@ -73,8 +73,8 @@
       "answers": [],
       "id": 12,
       "coords": {
-        "x": 246,
-        "y": 629
+        "x": 257,
+        "y": 647
       }
     }
   ],
@@ -85,8 +85,8 @@
       "id": 11,
       "bind_to": "9",
       "coords": {
-        "x": 141,
-        "y": 173
+        "x": 93,
+        "y": 197
       },
       "status": "2"
     },
@@ -96,8 +96,8 @@
       "text": "<p>asdfasdfasdf<br>\nasdfasdfasdf<br>\nasdfasdfasdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 16,
       "coords": {
-        "x": 1038,
-        "y": 128
+        "x": 845,
+        "y": 190
       },
       "bind_to": "9"
     },
@@ -107,8 +107,8 @@
       "text": "<p>asdfasdf<br>\nasdfasdf</p>\n",
       "id": 17,
       "coords": {
-        "x": 1061,
-        "y": 491
+        "x": 929,
+        "y": 458
       },
       "bind_to": "10"
     },
@@ -118,8 +118,8 @@
       "text": "<p>asdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 18,
       "coords": {
-        "x": 141,
-        "y": 508
+        "x": 145,
+        "y": 492
       },
       "bind_to": "10"
     },
@@ -148,8 +148,8 @@
       "text": "<p>ыффывафыва</p>\n",
       "id": 21,
       "coords": {
-        "x": 415,
-        "y": 231
+        "x": 573,
+        "y": 143
       },
       "bind_to": "12"
     }
