@@ -5,7 +5,8 @@
       "questions": [
         4,
         9,
-        10
+        10,
+        13
       ],
       "id": 2
     },
@@ -41,8 +42,8 @@
       ],
       "id": 9,
       "coords": {
-        "x": 556,
-        "y": 345
+        "x": 782,
+        "y": 234
       }
     },
     {
@@ -51,8 +52,8 @@
       "answers": [],
       "id": 10,
       "coords": {
-        "x": 481,
-        "y": 612
+        "x": 1034,
+        "y": 619
       }
     },
     {
@@ -63,8 +64,8 @@
       ],
       "id": 11,
       "coords": {
-        "x": 364,
-        "y": 52
+        "x": 625,
+        "y": 327
       }
     },
     {
@@ -73,8 +74,21 @@
       "answers": [],
       "id": 12,
       "coords": {
-        "x": 257,
-        "y": 647
+        "x": 795,
+        "y": 189
+      }
+    },
+    {
+      "name": "SVG",
+      "text": "",
+      "answers": [
+        22,
+        23
+      ],
+      "id": 13,
+      "coords": {
+        "x": 831,
+        "y": 471
       }
     }
   ],
@@ -85,8 +99,8 @@
       "id": 11,
       "bind_to": "9",
       "coords": {
-        "x": 93,
-        "y": 197
+        "x": 69,
+        "y": 216
       },
       "status": "2"
     },
@@ -96,8 +110,8 @@
       "text": "<p>asdfasdfasdf<br>\nasdfasdfasdf<br>\nasdfasdfasdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 16,
       "coords": {
-        "x": 845,
-        "y": 190
+        "x": 1221,
+        "y": 88
       },
       "bind_to": "9"
     },
@@ -107,8 +121,8 @@
       "text": "<p>asdfasdf<br>\nasdfasdf</p>\n",
       "id": 17,
       "coords": {
-        "x": 929,
-        "y": 458
+        "x": 1542,
+        "y": 399
       },
       "bind_to": "10"
     },
@@ -118,8 +132,8 @@
       "text": "<p>asdfasdf<br>\nasdfasdfasdf</p>\n",
       "id": 18,
       "coords": {
-        "x": 145,
-        "y": 492
+        "x": 301,
+        "y": 589
       },
       "bind_to": "10"
     },
@@ -148,10 +162,29 @@
       "text": "<p>ыффывафыва</p>\n",
       "id": 21,
       "coords": {
-        "x": 573,
-        "y": 143
+        "x": 817,
+        "y": 609
       },
       "bind_to": "12"
+    },
+    {
+      "name": "SVG ANSWER",
+      "bind_to": "13",
+      "text": "",
+      "id": 22,
+      "coords": {
+        "x": 1550,
+        "y": 208
+      }
+    },
+    {
+      "name": "SVG 2",
+      "text": "",
+      "id": 23,
+      "coords": {
+        "x": 704,
+        "y": 480
+      }
     }
   ],
   "answer_statuses": [

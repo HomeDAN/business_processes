@@ -18,7 +18,7 @@
         <rect
             class="answer"
             width="200"
-            height="80"
+            height="40"
             fill="orange"
         />
 
@@ -53,8 +53,8 @@
             stylesCoords: '',
             pathCoords: '',
             square: {
-                x: 50,
-                y: 50,
+                x: 25,
+                y: 25,
             },
             dragOffsetX: null,
             dragOffsetY: null
